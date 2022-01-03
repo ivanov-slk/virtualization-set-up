@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -e 
+
+start_time=$(date +%s)
+printf "\n%(%Y-%m-%d %H:%M:%S)T [PRE-COMMIT] Build starting...\n"
+
+bash $(dirname "$0")/../run-build.sh
+
+end_time=$(date +%s)
+printf "\n%(%Y-%m-%d %H:%M:%S)T [PRE-COMMIT] Build finished for $(($end_time-$start_time)) seconds.\n"
