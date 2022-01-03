@@ -19,8 +19,9 @@
         "https://releases.ubuntu.com/focal/ubuntu-20.04.3-live-server-amd64.iso"
       ],
       "iso_checksum": "sha256:f8e3086f3cea0fb3fefb29937ab5ed9d19e767079633960ccb50e76153effc98",
-      "ssh_username": "ubuntu",
-      "ssh_password": "ubuntu",
+      "ssh_username": "vagrant",
+      "ssh_private_key_file": "/home/slav/.ssh/virtual_id_ed25519",
+      "ssh_agent_auth": true,
       "ssh_port": 22,
       "ssh_wait_timeout": "10000s",
       "ssh_handshake_attempts": "200",
