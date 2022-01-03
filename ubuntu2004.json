@@ -37,12 +37,12 @@
     {
       "type": "file",
       "source": "/home/slav/.ssh/virtual_id_ed25519",
-      "destination": "/home/ubuntu/authorized_keys"
+      "destination": "/home/vagrant/authorized_keys"
     },
     {
       "type": "file",
       "source": "/home/slav/.ssh/virtual_id_ed25519",
-      "destination": "/home/ubuntu/.ssh/authorized_keys"
+      "destination": "/home/vagrant/.ssh/authorized_keys"
     },
     {
       "type": "shell",
