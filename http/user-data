@@ -28,7 +28,7 @@ autoinstall:
     - name: vagrant
       ssh_authorized_keys:
         - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFOc3SofnJlHF4gh/iEWpYOX03EwNFOKBKSnBIsIrM5E slav@Slav-PC
-      sudo: ALL=(ALL) NOPASSWD:ALL
+      sudo: ["ALL=(ALL) NOPASSWD:ALL"]
       groups: sudo, users, admin
       lock_passwd: true
       shell: /bin/bash
@@ -39,3 +39,4 @@ autoinstall:
     - build-essential
   late-commands:
     - echo 'ubuntu ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/ubuntu
+    - echo 'vagrant ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/vagrant
