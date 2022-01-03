@@ -22,9 +22,9 @@ autoinstall:
     install-server: yes
   users:
     - name: vagrant
-      sudo: ["ALL=(ALL) NOPASSWD:ALL"]
-      ssh_authorized_keys:
+      ssh-authorized-keys:
         - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFOc3SofnJlHF4gh/iEWpYOX03EwNFOKBKSnBIsIrM5E slav@Slav-PC
+      sudo: ["ALL=(ALL) NOPASSWD:ALL"]
       groups: sudo
       shell: /bin/bash
   user-data:

@@ -12,6 +12,10 @@ Vagrant.configure("2") do |config|
       vb.gui = true
       vb.name = "ubuntu-20.04-server-master"
 
+    config.ssh.connect_timeout = 100
+    config.ssh.username = "vagrant"
+    # config.ssh.password = "ubuntu"
+    config.ssh.keys_only = false
     config.ssh.insert_key = false
     config.ssh.private_key_path = ["/home/slav/.ssh/virtual_id_ed25519", "~/.vagrant.d/insecure_private_key"]
     config.vm.provision "file", source: "/home/slav/.ssh/virtual_id_ed25519", destination: "~/.ssh/authorized_keys"
