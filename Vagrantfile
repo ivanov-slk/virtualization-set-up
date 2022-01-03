@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
       vb.gui = true
       vb.name = "ubuntu-20.04-server-master"
 
-    config.ssh.connect_timeout = 100
+    config.ssh.connect_timeout = 20
     config.ssh.username = "vagrant"
     # config.ssh.password = "ubuntu"
     config.ssh.keys_only = false
