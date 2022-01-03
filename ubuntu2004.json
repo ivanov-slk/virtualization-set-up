@@ -1,0 +1,59 @@
+{
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "cd_files": ["./http/user-data", "./http/meta-data"],
+      "cd_label": "cidata",
+      "boot_wait": "2s",
+      "boot_command": [
+        "<enter><wait2><enter><wait><f6><esc><wait>",
+        "autoinstall<wait2> ds=nocloud;",
+        "<wait><enter>"
+      ],
+      "shutdown_command": "echo 'ubuntu'|sudo -S shutdown -P now",
+      "disk_size": 8192,
+      "guest_os_type": "Ubuntu_64",
+      "headless": false,
+      "http_directory": "http",
+      "iso_urls": [
+        "https://releases.ubuntu.com/focal/ubuntu-20.04.3-live-server-amd64.iso"
+      ],
+      "iso_checksum": "sha256:f8e3086f3cea0fb3fefb29937ab5ed9d19e767079633960ccb50e76153effc98",
+      "ssh_username": "ubuntu",
+      "ssh_password": "ubuntu",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
+      "ssh_handshake_attempts": "200",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "virtualbox_version_file": ".vbox_version",
+      "vm_name": "packer-ubuntu-20.04-amd64",
+      "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--memory", "1024"],
+        ["modifyvm", "{{.Name}}", "--cpus", "1"]
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "/home/slav/.ssh/virtual_id_ed25519",
+      "destination": "/home/ubuntu/authorized_keys"
+    },
+    {
+      "type": "file",
+      "source": "/home/slav/.ssh/virtual_id_ed25519",
+      "destination": "/home/ubuntu/.ssh/authorized_keys"
+    },
+    {
+      "type": "shell",
+      "scripts": ["scripts/init.sh", "scripts/cleanup.sh"]
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "compression_level": "8",
+      "output": "ubuntu-20.04-{{.Provider}}.box"
+    }
+  ]
+}
