@@ -35,16 +35,6 @@
   ],
   "provisioners": [
     {
-      "type": "file",
-      "source": "/home/slav/.ssh/virtual_id_ed25519",
-      "destination": "/home/vagrant/authorized_keys"
-    },
-    {
-      "type": "file",
-      "source": "/home/slav/.ssh/virtual_id_ed25519",
-      "destination": "/home/vagrant/.ssh/authorized_keys"
-    },
-    {
       "type": "shell",
       "scripts": ["scripts/init.sh", "scripts/cleanup.sh"]
     }
