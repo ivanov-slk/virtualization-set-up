@@ -46,11 +46,6 @@
     {
       "type": "file",
       "source": "/home/slav/.ssh/virtual_id_ed25519.pub",
-      "destination": "/root/.ssh/authorized_keys"
-    },
-    {
-      "type": "file",
-      "source": "/home/slav/.ssh/virtual_id_ed25519.pub",
       "destination": "/home/vagrant/.ssh/authorized_keys"
     }
   ],

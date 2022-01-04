@@ -29,6 +29,21 @@ build {
     scripts = ["scripts/init.sh", "scripts/cleanup.sh"]
   }
 
+  provisioner "file" {
+    destination = "/home/vagrant/authorized_keys"
+    source      = "/home/slav/.ssh/virtual_id_ed25519.pub"
+  }
+
+  provisioner "file" {
+    destination = "/root/.ssh/authorized_keys"
+    source      = "/home/slav/.ssh/virtual_id_ed25519.pub"
+  }
+
+  provisioner "file" {
+    destination = "/home/vagrant/.ssh/authorized_keys"
+    source      = "/home/slav/.ssh/virtual_id_ed25519.pub"
+  }
+
   post-processor "vagrant" {
     compression_level = "8"
     output            = "ubuntu-20.04-<no value>.box"
