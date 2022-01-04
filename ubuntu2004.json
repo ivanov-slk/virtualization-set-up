@@ -7,8 +7,11 @@
       "boot_wait": "2s",
       "boot_command": [
         "<enter><wait2><enter><wait><f6><esc><wait>",
-        "autoinstall<wait2> ds=nocloud;",
-        "<wait><enter>"
+        "linux /casper/vmlinuz autoinstall ds=nocloud;",
+        "<wait><enter>",
+        "initrd /casper/initrd",
+        "<wait><enter>",
+        "boot"
       ],
       "shutdown_command": "echo 'ubuntu'|sudo -S shutdown -P now",
       "disk_size": 8192,
