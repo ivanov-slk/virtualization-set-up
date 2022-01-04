@@ -29,5 +29,4 @@ autoinstall:
     - openssh-server
     - build-essential
   late-commands:
-    - echo 'ubuntu ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/ubuntu
     - echo 'vagrant ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/vagrant
