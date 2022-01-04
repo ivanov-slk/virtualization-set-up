@@ -35,11 +35,6 @@ build {
   }
 
   provisioner "file" {
-    destination = "/root/.ssh/authorized_keys"
-    source      = "/home/slav/.ssh/virtual_id_ed25519.pub"
-  }
-
-  provisioner "file" {
     destination = "/home/vagrant/.ssh/authorized_keys"
     source      = "/home/slav/.ssh/virtual_id_ed25519.pub"
   }
