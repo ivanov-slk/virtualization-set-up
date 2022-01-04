@@ -17,7 +17,7 @@ Vagrant.configure("2") do |config|
     # config.ssh.password = "ubuntu"
     config.ssh.keys_only = false
     config.ssh.insert_key = false
-    # config.ssh.private_key_path = ["/home/slav/.ssh/virtual_id_ed25519", "~/.vagrant.d/insecure_private_key"]
+    config.ssh.private_key_path = ["/home/slav/.ssh/virtual_id_ed25519"]
     # config.vm.provision "file", source: "/home/slav/.ssh/virtual_id_ed25519", destination: "/home/vagrant/.ssh/authorized_keys"
     end
   
