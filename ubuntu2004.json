@@ -36,7 +36,7 @@
   "provisioners": [
     {
       "type": "shell",
-      "scripts": ["scripts/init.sh", "scripts/cleanup.sh"]
+      "scripts": ["scripts/init.sh"]
     },
     {
       "type": "file",
@@ -47,6 +47,10 @@
       "type": "file",
       "source": "/home/slav/.ssh/virtual_id_ed25519.pub",
       "destination": "/home/vagrant/.ssh/authorized_keys"
+    },
+    {
+      "type": "shell",
+      "scripts": ["scripts/cleanup.sh"]
     }
   ],
   "post-processors": [
