@@ -12,4 +12,5 @@ PACKER_LOG=1 packer build ubuntu2004.json.pkr.hcl
 # vagrant
 vagrant box list | cut -f 1 -d ' ' | xargs -L 1 vagrant box remove -f
 vagrant destroy ubuntu-20.04-test -f
+vboxmanage unregistervm --delete ubuntu-20.04-test
 vagrant up && vagrant halt
