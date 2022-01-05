@@ -45,6 +45,6 @@ build {
 
   post-processor "vagrant" {
     compression_level = "8"
-    output            = "ubuntu-20.04-<no value>.box"
+    output            = "ubuntu-20.04-test.box"
   }
 }

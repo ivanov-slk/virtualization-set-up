@@ -3,7 +3,7 @@
 
 Vagrant.configure("2") do |config|
     config.vm.box = "ubuntu-20.04-<no value>"
-    config.vm.box_url = "file://./ubuntu-20.04-<no value>.box"
+    config.vm.box_url = "file://./ubuntu-20.04-test.box"
   
     config.vm.network "forwarded_port", guest: 80, host: 8080
   
@@ -17,8 +17,8 @@ Vagrant.configure("2") do |config|
     # config.ssh.password = "ubuntu"
     # config.ssh.keys_only = false
     # config.ssh.insert_key = false
-    config.ssh.private_key_path = ["/home/slav/.ssh/virtual_id_ed25519", "~/.vagrant.d/insecure_private_key"]
-    config.vm.provision "file", source: "/home/slav/.ssh/virtual_id_ed25519.pub", destination: "/home/vagrant/.ssh/authorized_keys"
+    # config.ssh.private_key_path = ["/home/slav/.ssh/virtual_id_ed25519", "~/.vagrant.d/insecure_private_key"]
+    # config.vm.provision "file", source: "/home/slav/.ssh/virtual_id_ed25519.pub", destination: "/home/vagrant/.ssh/authorized_keys"
     end
   
   end
