@@ -39,7 +39,9 @@ build {
     source      = "/home/slav/.ssh/virtual_id_ed25519.pub"
   }
 
-  
+  provisioner "shell" {
+    scripts = ["scripts/cleanup.sh"]
+  }
 
   post-processor "vagrant" {
     compression_level = "8"
