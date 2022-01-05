@@ -16,7 +16,7 @@ jobs:
         run: |
           git config --global user.name 'ivanov-slk'
           git config --global user.email 'ivanov-slk@users.noreply.github.com'
-
+          git fetch
           git checkout $GITHUB_REF_NAME
 
           git pull --tags
