@@ -30,3 +30,4 @@ jobs:
           if [[ "$LAST_TAG" != "$CURRENT_TAG"]]; then
             echo "Please update the version."
             exit 1
+          fi
