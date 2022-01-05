@@ -13,7 +13,7 @@
       "shutdown_command": "echo 'ubuntu'|sudo -S shutdown -P now",
       "disk_size": 8192,
       "guest_os_type": "Ubuntu_64",
-      "headless": false,
+      "headless": true,
       "http_directory": "http",
       "iso_urls": [
         "https://releases.ubuntu.com/focal/ubuntu-20.04.3-live-server-amd64.iso"

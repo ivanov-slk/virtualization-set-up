@@ -1,5 +1,4 @@
 #!/bin/bash
 
-# sudo apt update
-# sudo apt upgrade -y
-cat /home/vagrant/.ssh/authorized_keys
+sudo apt update
+sudo apt upgrade -y
