@@ -14,23 +14,19 @@ autoinstall:
   storage:
     layout:
       name: lvm
-  identity:
-    hostname: ubuntu-server
-    username: ubuntu
-    password: "$6$exDY1mhS4KUYCE/2$zmn9ToZwTKLhCw.b4/b.ZRTIZM30JZ4QrOQ2aOXJ8yk96xpcCof0kxKwuX1kqLG/ygbJ1f8wxED22bTL4F46P0"
   ssh:
     install-server: yes
-  users:
-    - name: vagrant
-      sudo: ["ALL=(ALL) NOPASSWD:ALL"]
-      ssh_authorized_keys:
-        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFOc3SofnJlHF4gh/iEWpYOX03EwNFOKBKSnBIsIrM5E slav@Slav-PC
-      groups: sudo
-      shell: /bin/bash
   user-data:
-    disable_root: false
+    users:
+      - name: vagrant
+        ssh_authorized_keys:
+          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFOc3SofnJlHF4gh/iEWpYOX03EwNFOKBKSnBIsIrM5E slav@Slav-PC
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        groups: [adm, sudo]
+        lock_passwd: true
+        shell: /bin/bash
   packages:
     - openssh-server
     - build-essential
   late-commands:
-    - echo 'ubuntu ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/ubuntu
+    - echo 'vagrant ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/vagrant
