@@ -27,7 +27,7 @@ jobs:
           CURRENT_TAG="$(echo $(sed '3q;d' CHANGES.md) | sed 's/# //g')"
           CURRENT_COMMIT_ID=$(git rev-parse HEAD)
 
-          if [ "$LAST_TAG" != "$CURRENT_TAG" ]; then
+          if [ "$LAST_TAG" = "$CURRENT_TAG" ] && [ "$LAST_COMMIT_ID" != "$CURRENT_COMMIT_ID" ]; then
             echo "Please update the version."
             exit 1
           fi
