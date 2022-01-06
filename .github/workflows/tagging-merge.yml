@@ -1,4 +1,4 @@
-name: version-tag-check
+name: version-tag-merge
 
 on:
   push:
@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Check that tag is updated.
+      - name: Tag the merge commit.
         run: |
           git config --global user.name 'ivanov-slk'
           git config --global user.email 'ivanov-slk@users.noreply.github.com'
