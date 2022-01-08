@@ -28,7 +28,7 @@ variable "iso_checksum_master" {
   default = "sha256:f8e3086f3cea0fb3fefb29937ab5ed9d19e767079633960ccb50e76153effc98"
 }
 
-variable "private_key_file_master" {
+variable "private_key_path_master" {
   type    = string
   default = "/home/slav/.ssh/virtual_id_ed25519"
 }
@@ -49,7 +49,7 @@ source "virtualbox-iso" "ubuntu-server-master" {
   shutdown_command        = "sudo -S shutdown -P now"
   ssh_agent_auth          = true
   ssh_handshake_attempts  = "200"
-  ssh_private_key_file    = var.private_key_file_master
+  ssh_private_key_file    = var.private_key_path_master
   ssh_username            = "vagrant"
   ssh_wait_timeout        = "10000s"
   virtualbox_version_file = ".vbox_version"
