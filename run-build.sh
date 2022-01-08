@@ -6,8 +6,7 @@ rm -r .vagrant || true
 rm -r *.box || true
 
 # packer
-packer hcl2_upgrade ubuntu2004.json
-PACKER_LOG=1 packer build ubuntu2004.json.pkr.hcl
+PACKER_LOG=1 packer build ubuntu-server-2004.pkr.hcl
 
 # vagrant
 vagrant box list | cut -f 1 -d ' ' | xargs -L 1 vagrant box remove -f
