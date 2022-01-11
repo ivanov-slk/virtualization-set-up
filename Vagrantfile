@@ -1,10 +1,10 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-virtual_machine_image_master = ENV["virtual_machine_image_master"] || "ubuntu-20.04.3-live-server-amd64"
-private_key_path_master = ENV["private_key_path_master"] || "/home/slav/.ssh/virtual_id_ed25519"
-virtual_machine_image_worker = ENV["virtual_machine_image_worker"] || "ubuntu-20.04.3-live-server-amd64"
-private_key_path_worker = ENV["private_key_path_worker"] || "/home/slav/.ssh/virtual_id_ed25519"
+virtual_machine_image_master = ENV["virtual_machine_image_master"]
+private_key_path_master = ENV["private_key_path_master"]
+virtual_machine_image_worker = ENV["virtual_machine_image_worker"]
+private_key_path_worker = ENV["private_key_path_worker"]
 
 Vagrant.configure("2") do |config|
   config.vm.define "#{virtual_machine_image_master}-master" do |master|
