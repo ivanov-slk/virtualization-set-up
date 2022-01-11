@@ -1,6 +1,6 @@
 variable "virtual_machine_image_master" {
     type = string
-    default = "ubuntu-20.04.3-live-server-amd64-master"
+    default = "ubuntu-20.04.3-live-server-amd64"
 }
 
 variable "private_key_path_master" {
@@ -10,7 +10,7 @@ variable "private_key_path_master" {
 
 variable "virtual_machine_image_worker" {
     type = string
-    default = "ubuntu-20.04.3-live-server-amd64-worker"
+    default = "ubuntu-20.04.3-live-server-amd64"
 }
 
 variable "private_key_path_worker" {
