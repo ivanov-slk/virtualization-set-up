@@ -1,18 +1,43 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-Vagrant.configure("2") do |config|
-    config.vm.box = "ubuntu-20.04-test"
-    config.vm.box_url = "file://./ubuntu-20.04-test.box"
-  
-    config.vm.provider "virtualbox" do |vb|
-      vb.gui = true
-      vb.name = "ubuntu-20.04-test"
+virtual_machine_image_master = ENV["virtual_machine_image_master"]
+private_key_path_master = ENV["private_key_path_master"]
+virtual_machine_image_worker = ENV["virtual_machine_image_worker"]
+private_key_path_worker = ENV["private_key_path_worker"]
 
-    config.ssh.connect_timeout = 20
-    config.ssh.username = "vagrant"
-    config.ssh.insert_key = false
-    config.ssh.private_key_path = ["/home/slav/.ssh/virtual_id_ed25519"]
-    end
+Vagrant.configure("2") do |config|
+  config.vm.define "#{virtual_machine_image_master}-master" do |master|
+    master.vm.box = virtual_machine_image_master
+    master.vm.box_url = "file://./#{virtual_machine_image_master}.box"
   
+    master.vm.provider "virtualbox" do |master_vm|
+      master_vm.gui = false
+      master_vm.name = "#{virtual_machine_image_master}-master"
+      master_vm.cpus = 4
+      master_vm.memory = 8192
+  
+      master.ssh.connect_timeout = 20
+      master.ssh.username = "vagrant"
+      master.ssh.insert_key = false
+      master.ssh.private_key_path = private_key_path_master
+    end
   end
+
+  (1..4).each do |i|
+    config.vm.define "#{virtual_machine_image_worker}-worker-#{i}" do |worker|
+      worker.vm.box = virtual_machine_image_worker
+      worker.vm.box_url = "file://./#{virtual_machine_image_worker}.box"
+      worker.vm.provider "virtualbox" do |worker_config|
+        worker_config.name = "#{virtual_machine_image_worker}-worker-#{i}"
+        worker_config.cpus = 2
+        worker_config.memory = 4096
+
+      worker.ssh.connect_timeout = 20
+      worker.ssh.username = "vagrant"
+      worker.ssh.insert_key = false
+      worker.ssh.private_key_path = private_key_path_worker
+    end
+  end
+end
+end
