@@ -2,6 +2,9 @@
 
 # TODO: find out how to avoid hardcoding packer variables here, or avoid using bash altogether...
 
+echo "This script is deprecated and will be removed in the future. Use Terraform commands instead."
+exit 0
+
 # remove unneeded files
 rm -r /home/slav/VirtualBox\ VMs/packer-ubuntu-20.04.3-live-server-amd64/
 rm -r .vagrant || true
