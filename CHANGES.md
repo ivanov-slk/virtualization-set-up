@@ -1,5 +1,12 @@
 # Changelog
 
+# v0.3.0
+
+### New
+
+- Moved Packer and Vagrant configurations in separate Terraform modules;
+- Added documentation.
+
 # v0.2.0
 
 ### New
