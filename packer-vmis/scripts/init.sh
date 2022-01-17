@@ -2,3 +2,4 @@
 
 sudo apt update
 sudo apt upgrade -y
+sudo apt install -y nettools vnstat bmon tcptrack curl
