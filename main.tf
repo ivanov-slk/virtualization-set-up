@@ -13,6 +13,8 @@ module "packer-vmis" {
   private_key_path_master = var.private_key_path_master
   virtual_machine_image_worker = var.virtual_machine_image_worker
   private_key_path_worker = var.private_key_path_worker
+
+  
 }
 
 module "vbox-cluster" {  
@@ -21,4 +23,8 @@ module "vbox-cluster" {
   private_key_path_master = var.private_key_path_master
   virtual_machine_image_worker = var.virtual_machine_image_worker
   private_key_path_worker = var.private_key_path_worker
+
+  depends_on = ["module.packer-vmis"]
 }
+
+
