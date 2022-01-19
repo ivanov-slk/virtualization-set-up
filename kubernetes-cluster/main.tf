@@ -1,5 +1,7 @@
 resource "null_resource" "kubernetes-setup" {
-  count = 5
+  
+
+  for_each = var.virtual_machine_configuration
 
   triggers = {
     always_run = "${timestamp()}"
@@ -10,12 +12,10 @@ connection {
     user = "vagrant"
     private_key = file("${var.private_key_path}")
     host = "127.0.0.1"
-    port = var.virtual_machine_ports[count.index]
+    port = each.value
   }
 
   provisioner "remote-exec" {
-    inline = [
-      "echo Hello, World!"
-    ]
+    script = each.value == 2222 ? "./kubernetes-cluster/master-set-up.sh" : "./kubernetes-cluster/worker-set-up.sh"
   }
 }
