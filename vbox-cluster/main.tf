@@ -11,8 +11,8 @@ resource "vagrant_vm" "ubuntu-server-instance" {
   vagrantfile_dir = "./vbox-cluster"
   env = {
 
-    virtual_machine_image_master = var.virtual_machine_image_master,
-    private_key_path_master = var.private_key_path_master,
+    virtual_machine_image = var.virtual_machine_image,
+    private_key_path = var.private_key_path,
     virtual_machine_index = count.index
   }
   get_ports = true

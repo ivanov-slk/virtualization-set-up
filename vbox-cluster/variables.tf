@@ -1,19 +1,9 @@
-variable "virtual_machine_image_master" {
+variable "virtual_machine_image" {
     type = string
     nullable = false 
 }
 
-variable "private_key_path_master" {
-  type    = string
-  nullable = false 
-}
-
-variable "virtual_machine_image_worker" {
-    type = string
-    nullable = false 
-}
-
-variable "private_key_path_worker" {
+variable "private_key_path" {
   type    = string
   nullable = false 
 }
