@@ -22,8 +22,9 @@ module "virtual-machine-instance" {
 module "kubernetes-cluster" {  
   source = "./kubernetes-cluster"
   private_key_path = var.private_key_path
-  virtual_machine_ports = module.virtual-machine-instance.virtual_machine_ports
-  virtual_machine_names = module.virtual-machine-instance.virtual_machine_names
+  virtual_machine_configuration = module.virtual-machine-instance.virtual_machine_configuration
+
+  depends_on = [module.virtual-machine-instance]
 }
 
 
