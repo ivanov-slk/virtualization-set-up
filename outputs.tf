@@ -1,4 +1,4 @@
-output "vbox-cluster-outputs" {
-    description = "The outputs from the vbox-cluster module."
-    value       = module.vbox-cluster
+output "virtual-machine-instance-outputs" {
+    description = "The outputs from the virtual-machine-instance module."
+    value       = module.virtual-machine-instance
 }

@@ -8,7 +8,7 @@ terraform {
 
 resource "vagrant_vm" "ubuntu-server-instance" {
   count = 5
-  vagrantfile_dir = "./vbox-cluster"
+  vagrantfile_dir = "./virtual-machine-instance"
   env = {
 
     virtual_machine_image = var.virtual_machine_image,
