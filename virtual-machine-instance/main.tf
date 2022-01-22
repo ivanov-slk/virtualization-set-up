@@ -6,7 +6,7 @@ terraform {
   }
 }
 
-resource "vagrant_vm" "ubuntu-server-instance" {
+resource "vagrant_vm" "virtual-machine-instance" {
   count = 5
   vagrantfile_dir = "./virtual-machine-instance"
   env = {
