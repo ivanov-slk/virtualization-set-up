@@ -6,3 +6,11 @@ variable "private_key_path" {
 variable "virtual_machine_configuration" {
   type = map
 }
+
+variable "virtual_machine_ports" {
+  type = list
+}
+
+variable "virtual_machine_names" {
+  type = list
+}
