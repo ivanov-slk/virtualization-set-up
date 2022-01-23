@@ -1,5 +1,7 @@
 #!/bin/bash
 
-sudo apt update
-sudo apt upgrade -y
-sudo apt install -y net-tools vnstat bmon tcptrack curl
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get install -y net-tools vnstat bmon tcptrack
+
+sudo apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release
