@@ -26,3 +26,4 @@ Run `terraform init && terraform plan` to get an idea of what will be executed. 
 ## TO-DO
 
 - move `packer` variables to somewhere else; they are hardcoded and essentially duplicated.
+- explore Terragrunt
