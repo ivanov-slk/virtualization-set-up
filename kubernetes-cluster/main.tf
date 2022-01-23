@@ -15,6 +15,12 @@ connection {
   }
 
   provisioner "remote-exec" {
-    script = var.virtual_machine_ports[count.index] == 2222 ? "./kubernetes-cluster/master-set-up.sh" : "./kubernetes-cluster/worker-set-up.sh"
+    #script = var.virtual_machine_ports[count.index] == 2222 ? "./kubernetes-cluster/master-set-up.sh" : "./kubernetes-cluster/worker-set-up.sh"
+    scripts = [
+      "./kubernetes-cluster/scripts/disable_swap.sh",
+      "./kubernetes-cluster/scripts/load_br_netfilter.sh",
+      "./kubernetes-cluster/scripts/install_containerd.sh",
+      "./kubernetes-cluster/scripts/install_kubepackages.sh"
+    ]
   }
 }
