@@ -18,7 +18,7 @@ module "virtual-machine-instance" {
   virtual_machine_image = var.virtual_machine_image
   private_key_path = var.private_key_path
 
-  depends_on = [module.packer-vmis]
+  #depends_on = [module.packer-vmis]
 }
 
 module "kubernetes-cluster" {  
