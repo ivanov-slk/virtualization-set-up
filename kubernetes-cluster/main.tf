@@ -15,12 +15,13 @@ connection {
   }
 
   provisioner "remote-exec" {
-    #script = var.virtual_machine_ports[count.index] == 2222 ? "./kubernetes-cluster/master-set-up.sh" : "./kubernetes-cluster/worker-set-up.sh"
-    scripts = [
-      "./kubernetes-cluster/scripts/disable_swap.sh",
-      "./kubernetes-cluster/scripts/load_br_netfilter.sh",
-      "./kubernetes-cluster/scripts/install_containerd.sh",
-      "./kubernetes-cluster/scripts/install_kubepackages.sh"
+    inline = [
+      "echo 'Machine started.'"
     ]
   }
+
+  provisioner "local-exec" {
+    command = "ansible-playbook -u vagrant -i '127.0.0.1:${var.virtual_machine_ports[count.index]},' --private-key ${var.private_key_path} ${var.virtual_machine_ports[count.index] == 2222 ? "./kubernetes-cluster/ansible-playbooks/master-playbook.yml" : "./kubernetes-cluster/ansible-playbooks/node-playbook.yml"}"
+  }
+
 }
