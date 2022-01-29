@@ -1,4 +1,3 @@
-
 - name: Remove current swaps from fstab
   lineinfile:
     dest: /etc/fstab
@@ -18,10 +17,22 @@
     - swap
     - none
 
+- name: Copy NetworkManager configuration yaml
+  template:
+    src: "netplan-config.yml"
+    dest: "/home/{{ k8s_master_admin_user }}/netplan-config.yaml"
+
+- name: Apply NetworkManager configuration
+  command: sudo netplan apply
+  async: 45
+  poll: 0
+  notify:
+    - Restart NetworkManager
+
 - name: Configure containerd.conf modules
   template:
-     src: etc/modules-load.d/containerd.conf
-     dest: /etc/modules-load.d/containerd.conf 
+    src: etc/modules-load.d/containerd.conf
+    dest: /etc/modules-load.d/containerd.conf
 
 - name: Load containerd kernel modules
   modprobe:
@@ -47,23 +58,23 @@
 
 - name: Configure node-ip {{ k8s_node_public_ip }} at kubelet
   lineinfile:
-    path: '/etc/systemd/system/kubelet.service.d/10-kubeadm.conf'
+    path: "/etc/systemd/system/kubelet.service.d/10-kubeadm.conf"
     line: 'Environment="KUBELET_EXTRA_ARGS=--node-ip={{ k8s_node_public_ip }}"'
-    regexp: 'KUBELET_EXTRA_ARGS='
+    regexp: "KUBELET_EXTRA_ARGS="
     insertafter: '\[Service\]'
     state: present
   notify: restart kubelet
 
 - name: restart containerd
-  service: 
-    name: containerd 
-    state: restarted 
+  service:
+    name: containerd
+    state: restarted
     daemon_reload: yes
 
 - name: Delete configuration for containerd.conf as kubeadm is unable to detect containerd (see https://github.com/containerd/containerd/issues/4581)
   file:
     state: absent
-    path:  /etc/containerd/config.toml
+    path: /etc/containerd/config.toml
 
 - name: Restart services if needed
   meta: flush_handlers

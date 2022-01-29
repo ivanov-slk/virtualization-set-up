@@ -1,0 +1,28 @@
+resource "null_resource" "kubernetes-setup-node" {
+  
+  count = 5
+
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+
+  connection {
+    type = "ssh"
+    user = "vagrant"
+    private_key = file("${var.private_key_path}")
+    host = "127.0.0.1"
+    port = var.virtual_machine_ports[count.index]
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "echo 'Machine started.'"
+    ]
+  }
+
+  provisioner "local-exec" {
+    command = "ansible-playbook -u vagrant -i ./kubernetes-cluster/ansible-playbooks/roles.yml --private-key ${var.private_key_path} -e k8s_node_public_ip='192.168.50.${5 + 10}' -e k8s_master_apiserver_advertise_address='192.168.50.${5 + 10}' -e k8s_cluster_name='k8s-cluster'"
+  }
+  
+  #depends_on = ["null_resource.kubernetes-setup-master"]
+}

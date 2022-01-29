@@ -8,6 +8,7 @@ k8s_common_add_packages_repositories:
 
 k8s_common_add_packages_names:
   - name: apt-transport-https
+  - name: network-manager
   - name: curl
   - name: containerd.io
   - name: kubeadm
