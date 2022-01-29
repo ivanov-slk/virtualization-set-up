@@ -25,5 +25,6 @@ Run `terraform init && terraform plan` to get an idea of what will be executed. 
 
 ## TO-DO
 
-- move `packer` variables to somewhere else; they are hardcoded and essentially duplicated.
-- explore Terragrunt
+- move `packer` variables to somewhere else; they are hardcoded and essentially duplicated;
+- explore Terragrunt;
+- consider fixing of hard-coded IP address in kubernetes-cluster master setup command line;
