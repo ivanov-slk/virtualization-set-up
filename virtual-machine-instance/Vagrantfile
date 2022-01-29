@@ -4,15 +4,14 @@
 private_key_path = ENV["private_key_path"]
 virtual_machine_image = ENV["virtual_machine_image"]
 virtual_machine_index = ENV["virtual_machine_index"]
-virtual_machine_hostname = ENV["virtual_machine_hostname"]
-virtual_machine_ip = ENV["virtual_machine_ip"]
+ip_base = ENV["ip_base"]
 
 Vagrant.configure("2") do |config|
   config.vm.define "#{virtual_machine_image}-#{virtual_machine_index}" do |config|
     config.vm.box = virtual_machine_image
     config.vm.box_url = "file://../packer-vmis/#{virtual_machine_image}.box"
-    config.vm.network "private_network", ip: virtual_machine_ip
-    config.vm.hostname = virtual_machine_hostname
+    config.vm.network "private_network", ip: "#{ip_base}.#{virtual_machine_index + 10}"
+    config.vm.hostname = "#{virtual_machine_image}-#{virtual_machine_index}"
   
     config.vm.provider "virtualbox" do |config_vm|
       config_vm.gui = false
