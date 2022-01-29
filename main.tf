@@ -17,6 +17,7 @@ module "virtual-machine-instance" {
   source = "./virtual-machine-instance"
   virtual_machine_image = var.virtual_machine_image
   private_key_path = var.private_key_path
+  ip_base = var.ip_base
 
   #depends_on = [module.packer-vmis]
 }

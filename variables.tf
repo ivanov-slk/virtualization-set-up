@@ -7,3 +7,8 @@ variable "private_key_path" {
   type    = string
   default = "/home/slav/.ssh/virtual_id_ed25519"
 }
+
+variable "ip_base" {
+  type    = string
+  default = "192.168.50"
+}
