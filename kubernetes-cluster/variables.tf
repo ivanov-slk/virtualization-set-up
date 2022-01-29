@@ -1,16 +1,14 @@
+variable "virtual_machine_image" {
+    type = string
+    nullable = false 
+}
+
 variable "private_key_path" {
-  type     = string
-  nullable = false
+  type    = string
+  nullable = false 
 }
 
-variable "virtual_machine_configuration" {
-  type = map
-}
-
-variable "virtual_machine_ports" {
-  type = list
-}
-
-variable "virtual_machine_names" {
-  type = list
+variable "ip_base" {
+  type    = string
+  nullable = false 
 }
