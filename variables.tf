@@ -12,3 +12,38 @@ variable "ip_base" {
   type    = string
   default = "192.168.50"
 }
+
+variable "cluster_name" {
+  type    = string
+  default = "kubernetes-cluster"
+}
+
+variable "master_count" {
+  type    = number
+  default = 2
+}
+
+variable "master_cpus" {
+  type    = number
+  default = 4
+}
+
+variable "master_memory" {
+  type    = number
+  default = 8192
+}
+
+variable "node_count" {
+  type    = number
+  default = 3
+}
+
+variable "node_cpus" {
+  type    = number
+  default = 2
+}
+
+variable "node_memory" {
+  type    = number
+  default = 4096
+}

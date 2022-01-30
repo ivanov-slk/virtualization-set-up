@@ -18,6 +18,13 @@ module "kubernetes-cluster" {
   virtual_machine_image = var.virtual_machine_image
   private_key_path = var.private_key_path
   ip_base = var.ip_base
+  cluster_name = var.cluster_name
+  master_count = var.master_count
+  master_cpus = var.master_cpus
+  master_memory = var.master_memory
+  node_count = var.node_count
+  node_cpus = var.node_cpus
+  node_memory = var.node_memory
 
   #depends_on = [module.packer-vmis]
 }
