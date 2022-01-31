@@ -14,6 +14,7 @@ resource "vagrant_vm" "kubernetes-cluster-master" {
     virtual_machine_image = var.virtual_machine_image,
     ip_full = "${var.ip_base}.${count.index + 10}",
     cluster_name = var.cluster_name,
+    count_index = count.index
     node_name = "master",
     node_count = var.master_count,
     node_cpus = var.master_cpus,
