@@ -1,5 +1,0 @@
-k8s_node_admin_user: "vagrant"
-k8s_node_admin_group: "sudo"
-
-k8s_node_node_name: "node"
-k8s_cluster_name: "k8s-cluster"
