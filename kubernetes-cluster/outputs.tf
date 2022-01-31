@@ -1,14 +1,15 @@
-output "virtual_machine_configuration" {
+output "virtual_machine_configuration_master" {
     description = "The exposed ports of the Vagrant-created VirtualBox machines."
-    value       = zipmap(vagrant_vm.kubernetes-cluster[*].machine_names[0], vagrant_vm.kubernetes-cluster[*].ports[0][0].host)
+    value       = zipmap(vagrant_vm.kubernetes-cluster-master[*].machine_names[0], vagrant_vm.kubernetes-cluster-master[*].ports[0][0].host)
 }
 
-output "virtual_machine_names" {
+output "virtual_machine_names_master" {
     description = "The exposed ports of the Vagrant-created VirtualBox machines."
-    value       = vagrant_vm.kubernetes-cluster[*].machine_names[0]
+    value       = vagrant_vm.kubernetes-cluster-master[*].machine_names[0]
 }
 
-output "virtual_machine_ports" {
+output "virtual_machine_ports_master" {
     description = "The exposed ports of the Vagrant-created VirtualBox machines."
-    value       = vagrant_vm.kubernetes-cluster[*].ports[0][0].host
+    value       = vagrant_vm.kubernetes-cluster-master[*].ports[0][0].host
 }
+

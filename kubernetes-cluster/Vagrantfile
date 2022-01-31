@@ -1,5 +1,5 @@
 private_key_path = ENV["private_key_path"]
-virtual_machine_image = ENV["virtual_machine_image"]
+virtual_machine_image = ENV["virtual_machine_image"] || ""
 virtual_machine_index = ENV["virtual_machine_index"]
 ip_base = ENV["ip_base"]
 
@@ -8,9 +8,9 @@ master_cpus = ENV["master_cpus"].to_i
 master_memory = ENV["master_memory"].to_i
 master_count = ENV["master_count"].to_i
 
-node_cpus = ENV["node_cpus"].to_i
-node_memory = ENV["node_memory"].to_i
-node_count = ENV["node_count"].to_i
+worker_cpus = ENV["worker_cpus"].to_i
+worker_memory = ENV["worker_memory"].to_i
+worker_count = ENV["worker_count"].to_i
 
 VAGRANT_DISABLE_VBOXSYMLINKCREATE=1
 
@@ -43,15 +43,15 @@ Vagrant.configure("2") do |config|
         end
     end
 
-    (1..node_count).each do |j|
+    (1..worker_count).each do |j|
         config.vm.define "worker-#{j}" do |node|
             node.vm.box = virtual_machine_image
             node.vm.box_url = "file://../packer-vmis/#{virtual_machine_image}.box"
             node.vm.network "private_network", ip: "#{ip_base}.#{j + 10 + master_count}"
             node.vm.hostname = "worker-#{j}"
             node.vm.provider "virtualbox" do |v|
-                v.memory = node_memory
-                v.cpus = node_cpus
+                v.memory = worker_memory
+                v.cpus = worker_cpus
             end             
             node.vm.provision "ansible" do |ansible|
                 ansible.playbook = "roles/k8s.yml"                   

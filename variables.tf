@@ -33,17 +33,17 @@ variable "master_memory" {
   default = 8192
 }
 
-variable "node_count" {
+variable "worker_count" {
   type    = number
   default = 3
 }
 
-variable "node_cpus" {
+variable "worker_cpus" {
   type    = number
   default = 2
 }
 
-variable "node_memory" {
+variable "worker_memory" {
   type    = number
   default = 4096
 }

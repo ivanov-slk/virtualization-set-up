@@ -33,17 +33,17 @@ variable "master_memory" {
   nullable = false 
 }
 
-variable "node_count" {
+variable "worker_count" {
   type    = number
   nullable = false 
 }
 
-variable "node_cpus" {
+variable "worker_cpus" {
   type    = number
   nullable = false 
 }
 
-variable "node_memory" {
+variable "worker_memory" {
   type    = number
   nullable = false 
 }

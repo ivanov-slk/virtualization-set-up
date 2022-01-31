@@ -22,9 +22,9 @@ module "kubernetes-cluster" {
   master_count = var.master_count
   master_cpus = var.master_cpus
   master_memory = var.master_memory
-  node_count = var.node_count
-  node_cpus = var.node_cpus
-  node_memory = var.node_memory
+  worker_count = var.worker_count
+  worker_cpus = var.worker_cpus
+  worker_memory = var.worker_memory
 
   #depends_on = [module.packer-vmis]
 }
