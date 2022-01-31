@@ -38,5 +38,5 @@ resource "vagrant_vm" "kubernetes-cluster-worker" {
   }
   get_ports = true
 
-  depends_on = [vagrant_vm.kubernetes-cluster-master]
+  #depends_on = [vagrant_vm.kubernetes-cluster-master]
 }
