@@ -4,15 +4,11 @@ virtual_machine_index = ENV["virtual_machine_index"]
 ip_full = ENV["ip_full"]
 
 cluster_name = ENV["cluster_name"]
+
 node_name = ENV["node_name"]
-
-master_cpus = ENV["master_cpus"].to_i
-master_memory = ENV["master_memory"].to_i
-master_count = ENV["master_count"].to_i
-
-worker_cpus = ENV["worker_cpus"].to_i
-worker_memory = ENV["worker_memory"].to_i
-worker_count = ENV["worker_count"].to_i
+node_cpus = ENV["node_cpus"].to_i
+node_memory = ENV["node_memory"].to_i
+node_count = ENV["node_count"].to_i
 
 VAGRANT_DISABLE_VBOXSYMLINKCREATE=1
 
@@ -20,50 +16,30 @@ Vagrant.configure("2") do |config|
     config.ssh.insert_key = false
     config.ssh.private_key_path = private_key_path
 
-    (1..master_count).each do |i|      
+    (1..node_count).each do |i|      
         config.vm.define "#{node_name}-#{i}" do |master|
             master.vm.box = virtual_machine_image
             master.vm.box_url = "file://../packer-vmis/#{virtual_machine_image}.box"
             master.vm.network "private_network", ip: "#{ip_full}"
             master.vm.hostname = "#{node_name}-#{i}"
             master.vm.provider "virtualbox" do |v|
-                v.memory = master_memory
-                v.cpus = master_cpus
+                v.memory = node_memory
+                v.cpus = node_cpus
             end            
             master.vm.provision "ansible" do |ansible|
                 ansible.playbook = "./roles/k8s.yml"
                 #Redefine defaults
                 ansible.extra_vars = {
-                    k8s_cluster_name:       cluster_name,                    
+                    k8s_cluster_name:       cluster_name,   
+                    # The below are repeated because of Ansible configuration, consider refactoring                 
                     k8s_master_admin_user:  "vagrant",
                     k8s_master_admin_group: "sudo",
-                    k8s_master_apiserver_advertise_address: "#{ip_full}",
-                    k8s_master_node_name: "master-#{i}",
-                    k8s_node_public_ip: "#{ip_full}"
-                }                
-            end
-        end
-    end
-
-    (1..worker_count).each do |j|
-        config.vm.define "#{node_name}-#{j}" do |node|
-            node.vm.box = virtual_machine_image
-            node.vm.box_url = "file://../packer-vmis/#{virtual_machine_image}.box"
-            node.vm.network "private_network", ip: "#{ip_full}"
-            node.vm.hostname = "#{node_name}-#{j}"
-            node.vm.provider "virtualbox" do |v|
-                v.memory = worker_memory
-                v.cpus = worker_cpus
-            end             
-            node.vm.provision "ansible" do |ansible|
-                ansible.playbook = "roles/k8s.yml"                   
-                #Redefine defaults
-                ansible.extra_vars = {
-                    k8s_cluster_name:     cluster_name,
                     k8s_node_admin_user:  "vagrant",
                     k8s_node_admin_group: "sudo",
+                    k8s_master_apiserver_advertise_address: "#{ip_full}",
+                    k8s_master_node_name: "#{node_name}-#{i}",
                     k8s_node_public_ip: "#{ip_full}"
-                }
+                }                
             end
         end
     end

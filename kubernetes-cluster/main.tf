@@ -15,12 +15,9 @@ resource "vagrant_vm" "kubernetes-cluster-master" {
     ip_full = "${var.ip_base}.${count.index + 10}",
     cluster_name = var.cluster_name,
     node_name = "master",
-    master_count = var.master_count,
-    master_cpus = var.master_cpus,
-    master_memory = var.master_memory,
-    worker_count = var.worker_count,
-    worker_cpus = var.worker_cpus,
-    worker_memory = var.worker_memory
+    node_count = var.master_count,
+    node_cpus = var.master_cpus,
+    node_memory = var.master_memory,
   }
   get_ports = true
 }
@@ -34,12 +31,9 @@ resource "vagrant_vm" "kubernetes-cluster-worker" {
     ip_full = "${var.ip_base}.${count.index + 10 + var.master_count}",
     cluster_name = var.cluster_name,
     node_name = "worker",
-    master_count = var.master_count,
-    master_cpus = var.master_cpus,
-    master_memory = var.master_memory,
-    worker_count = var.worker_count,
-    worker_cpus = var.worker_cpus,
-    worker_memory = var.worker_memory
+    node_count = var.worker_count,
+    node_cpus = var.worker_cpus,
+    node_memory = var.worker_memory
   }
   get_ports = true
 }
