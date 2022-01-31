@@ -12,7 +12,7 @@ resource "vagrant_vm" "kubernetes-cluster-master" {
   env = {
     private_key_path = var.private_key_path,
     virtual_machine_image = var.virtual_machine_image,
-    ip_base = var.ip_base,
+    ip_full = "${var.ip_base}.${count.index + 10}",
     cluster_name = var.cluster_name,
     master_count = var.master_count,
     master_cpus = var.master_cpus,
@@ -30,7 +30,7 @@ resource "vagrant_vm" "kubernetes-cluster-worker" {
   env = {
     private_key_path = var.private_key_path,
     virtual_machine_image = var.virtual_machine_image,
-    ip_base = var.ip_base,
+    ip_full = "${var.ip_base}.${count.index + 10 + var.master_count}",
     cluster_name = var.cluster_name,
     master_count = var.master_count,
     master_cpus = var.master_cpus,
