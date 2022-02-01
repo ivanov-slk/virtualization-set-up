@@ -30,7 +30,7 @@ resource "vagrant_vm" "kubernetes-cluster-worker" {
     private_key_path = var.private_key_path,
     virtual_machine_image = var.virtual_machine_image,
     ip_full = "${var.ip_base}.${count.index + 10 + var.master_count}",
-    count_index = count.index
+    count_index = count.index,
     cluster_name = var.cluster_name,
     node_name = "worker",
     node_count = var.worker_count,
