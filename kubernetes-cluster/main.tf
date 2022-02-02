@@ -8,6 +8,7 @@ terraform {
 
 resource "vagrant_vm" "kubernetes-cluster-master" {
   count = var.master_count
+  name = "worker-${count.index}"
   vagrantfile_dir = "./kubernetes-cluster"
   env = {
     private_key_path = var.private_key_path,
@@ -25,6 +26,7 @@ resource "vagrant_vm" "kubernetes-cluster-master" {
 
 resource "vagrant_vm" "kubernetes-cluster-worker" {
   count = var.worker_count
+  name = "worker-${count.index}"
   vagrantfile_dir = "./kubernetes-cluster"
   env = {
     private_key_path = var.private_key_path,
