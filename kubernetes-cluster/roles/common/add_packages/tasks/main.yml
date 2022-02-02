@@ -31,6 +31,10 @@
   apt_repository: repo='{{item.repo}}'
   with_items: "{{ linux_add_packages_repositories | default([])}}"
   when: linux_add_packages_repositories is defined and not (linux_add_packages_repositories is none or linux_add_packages_repositories | trim == '')
+  register: apt_add_repositories
+  retries: 10
+  delay: 5
+  until: apt_add_repositories is succeeded
 
 - name: Force update cache if new keys added
   set_fact:
