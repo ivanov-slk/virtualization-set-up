@@ -33,6 +33,10 @@
   ansible.builtin.get_url:
     url: "https://docs.projectcalico.org/manifests/calico.yaml"
     dest: "/home/{{ k8s_master_admin_user }}/calico.yaml"
+  register: download_calico
+  retries: 10
+  delay: 5
+  until: download_calico is succeeded
 
 #Rewrite calico replacing defaults
 #https://docs.projectcalico.org/getting-started/kubernetes/self-managed-onprem/onpremises
