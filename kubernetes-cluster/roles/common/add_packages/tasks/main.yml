@@ -42,6 +42,10 @@
     state=absent
   with_items: "{{ linux_remove_packages_names | default([])}}"
   when: linux_remove_packages_names is defined and not (linux_remove_packages_names is none or linux_remove_packages_names | trim == '')
+  register: apt_remove_packages
+  retries: 10
+  delay: 5
+  until: apt_remove_packages is succeeded
 
 - name: Install packages
   apt: name={{ item.name }}
@@ -50,3 +54,7 @@
     cache_valid_time={{linux_add_packages_cache_valid_time}}
   with_items: "{{ linux_add_packages_names | default([])}}"
   when: linux_add_packages_names is defined and not (linux_add_packages_names is none or linux_add_packages_names | trim == '')
+  register: apt_install_packages
+  retries: 10
+  delay: 5
+  until: apt_install_packages is succeeded
