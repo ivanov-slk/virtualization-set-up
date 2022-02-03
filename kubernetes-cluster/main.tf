@@ -7,15 +7,13 @@ terraform {
 }
 
 resource "vagrant_vm" "kubernetes-cluster-master" {
-  count = var.master_count
-  name = "worker-${count.index}"
   vagrantfile_dir = "./kubernetes-cluster"
   env = {
     private_key_path = var.private_key_path,
     virtual_machine_image = var.virtual_machine_image,
-    ip_full = "${var.ip_base}.${count.index + 10}",
+    ip_base = var.ip_base,
+    ip_offset = 0,
     cluster_name = var.cluster_name,
-    count_index = count.index,
     node_name = "master",
     node_count = var.master_count,
     node_cpus = var.master_cpus,
@@ -25,14 +23,12 @@ resource "vagrant_vm" "kubernetes-cluster-master" {
 }
 
 resource "vagrant_vm" "kubernetes-cluster-worker" {
-  count = var.worker_count
-  name = "worker-${count.index}"
   vagrantfile_dir = "./kubernetes-cluster"
   env = {
     private_key_path = var.private_key_path,
     virtual_machine_image = var.virtual_machine_image,
-    ip_full = "${var.ip_base}.${count.index + 10 + var.master_count}",
-    count_index = count.index,
+    ip_base = var.ip_base,
+    ip_offset = var.master_count,
     cluster_name = var.cluster_name,
     node_name = "worker",
     node_count = var.worker_count,
