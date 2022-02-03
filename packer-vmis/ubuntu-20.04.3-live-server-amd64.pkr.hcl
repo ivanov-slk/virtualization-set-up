@@ -1,6 +1,6 @@
 variable "disk_size" {
     type    = number
-    default = 8192
+    default = 16384
 }
 
 variable "cpus" {
