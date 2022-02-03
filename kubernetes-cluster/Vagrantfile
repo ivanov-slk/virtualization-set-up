@@ -44,5 +44,6 @@ Vagrant.configure("2") do |config|
                 }                
             end
         end
+        sleep(60)
     end
 end

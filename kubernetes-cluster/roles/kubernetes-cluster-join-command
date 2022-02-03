@@ -1,1 +1,1 @@
-kubeadm join 192.168.50.11:6443 --token silnc1.vbd39ra4851eo959 --discovery-token-ca-cert-hash sha256:cad5e3bf3fa3b53638eba45dd10e9b489d2c9ebb6523603851a9461bd5589b44 
+kubeadm join 192.168.50.12:6443 --token rcwrlq.hp48kj9igh6xhx08 --discovery-token-ca-cert-hash sha256:9e50d2b2716addba4963e9875a284cda02d8f6af4a295c24530451dd032a637e 
