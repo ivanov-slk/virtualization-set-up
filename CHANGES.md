@@ -1,11 +1,27 @@
 # Changelog
 
+# v0.4.0
+
+### New
+
+- Added Terraform module for managing the Kubernetes cluster;
+- Added Ansible playbooks for configuring the Kubernetes cluster;
+- Kubernetes module now manages the virtual machines as well; module `virtual-machine-instance` is removed as unnecessary anymore.
+
+### Maintenance
+
+- Extended the virtual machine storage to support Kubernetes requirements.
+
+---
+
 # v0.3.0
 
 ### New
 
 - Moved Packer and Vagrant configurations in separate Terraform modules;
 - Added documentation.
+
+---
 
 # v0.2.0
 
@@ -19,11 +35,15 @@
 
 - Fixed bugs in the tagging check.
 
+---
+
 # v0.1.1
 
 ### Bugfixes
 
 - Fix github tag action's `on` condition.
+
+---
 
 # v0.1.0
 

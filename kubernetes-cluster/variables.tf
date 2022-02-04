@@ -1,49 +1,49 @@
 variable "virtual_machine_image" {
     type = string
-    default = "ubuntu-20.04.3-live-server-amd64"
+    nullable = false 
 }
 
 variable "private_key_path" {
   type    = string
-  default = "/home/slav/.ssh/virtual_id_ed25519"
+  nullable = false 
 }
 
 variable "ip_base" {
   type    = string
-  default = "192.168.50"
+  nullable = false 
 }
 
 variable "cluster_name" {
   type    = string
-  default = "kubernetes-cluster"
+  nullable = false 
 }
 
 variable "master_count" {
   type    = number
-  default = 2
+  nullable = false 
 }
 
 variable "master_cpus" {
   type    = number
-  default = 4
+  nullable = false 
 }
 
 variable "master_memory" {
   type    = number
-  default = 8192
+  nullable = false 
 }
 
 variable "worker_count" {
   type    = number
-  default = 3
+  nullable = false 
 }
 
 variable "worker_cpus" {
   type    = number
-  default = 2
+  nullable = false 
 }
 
 variable "worker_memory" {
   type    = number
-  default = 4096
+  nullable = false 
 }

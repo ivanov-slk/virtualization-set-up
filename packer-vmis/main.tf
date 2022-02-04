@@ -2,8 +2,7 @@
 
 resource "null_resource" "packer-build" {
   triggers = {
-    virtual_machine_image_master = var.virtual_machine_image_master
-    virtual_machine_image_worker = var.virtual_machine_image_worker
+    virtual_machine_image = var.virtual_machine_image
     always_run = "${timestamp()}"
   }
   provisioner "local-exec" {
