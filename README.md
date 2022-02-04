@@ -14,6 +14,11 @@ Packer is used to create a Ubuntu server virtual machine image for `vagrant` (.b
 
 Provisions a Kubernetes cluster in VirtualBox with the desired configuration. The virtual machines are provisioned with `vagrant`. The Kubernetes cluster is configured with `Ansible`. Terraform manages these resources.
 
+At this point, `vagrant` cannot be used to manage the virtual machines unless the environment variables for the VMI name and the SSH private key are explicitly set.
+
+- i.e., if you want to `ssh` in a machine, you need to `export virtual_machine=""` and `export private_key_path=""` first and then `vagrant ssh vmi-name`.
+- check [this issue](https://github.com/bmatcuk/terraform-provider-vagrant/issues/21) for more information.
+
 ### Usage
 
 You need to have Packer, Vagrant, Terraform and VirtualBox installed.
