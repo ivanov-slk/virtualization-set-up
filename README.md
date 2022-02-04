@@ -8,7 +8,7 @@ A `terraform` repository for provisioning a virtual kubernetes cluster on Virtua
 
 ### `packer` virtual machine images
 
-Packer is used to create a virtual machine image for `vagrant` (.box file) with a basic stack of packages for working as a kubernetes node.
+Packer is used to create a Ubuntu server virtual machine image for `vagrant` (.box file) with a basic stack of packages.
 
 ### Kubernetes cluster
 
