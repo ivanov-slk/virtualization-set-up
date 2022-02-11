@@ -4,9 +4,9 @@ terraform {
       source  = "bmatcuk/vagrant"
       version = "~> 4.1.0"
     }
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = ">= 2.0.0"
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = ">= 1.7.0"
     }
   }
 }
@@ -33,4 +33,7 @@ module "kubernetes-cluster" {
   #depends_on = [module.packer-vmis]
 }
 
+module "kubernetes-tools" {
+  source = "./kubernetes-tools"
+}
 
