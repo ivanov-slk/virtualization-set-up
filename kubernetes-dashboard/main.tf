@@ -111,9 +111,3 @@ resource "kubectl_manifest" "service-metrics" {
   depends_on = [kubectl_manifest.namespace]
 }
 
-resource "kubectl_manifest" "dashboard" {
-  yaml_body = file("./kubernetes-dashboard/manifests/dashboard.yaml")
-
-  depends_on = [kubectl_manifest.namespace]
-}
-
