@@ -1,5 +1,18 @@
 # Changelog
 
+---
+
+# v0.5.0
+
+### New
+
+- Added the Kubernetes dashboard:
+  - a separate Terraform module created (`kubernetes-dashboard`);
+  - the Kubernetes resources are deployed in a separate namespace;
+  - All YAML files are available in `./kubernetes-dashboard/manifests`.
+
+---
+
 # v0.4.0
 
 ### New
