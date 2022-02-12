@@ -33,7 +33,7 @@ module "kubernetes-cluster" {
   #depends_on = [module.packer-vmis]
 }
 
-module "kubernetes-tools" {
-  source = "./kubernetes-tools"
+module "kubernetes-dashboard" {
+  source = "./kubernetes-dashboard"
 }
 
