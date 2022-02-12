@@ -8,6 +8,10 @@ terraform {
       source  = "gavinbunney/kubectl"
       version = ">= 1.7.0"
     }
+    helm = {
+      source = "hashicorp/helm"
+      version = ">= 2.4.1"
+    }
   }
 }
 
@@ -37,3 +41,6 @@ module "kubernetes-dashboard" {
   source = "./kubernetes-dashboard"
 }
 
+module "istio" {
+  source = "./istio"
+}
