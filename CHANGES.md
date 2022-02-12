@@ -2,6 +2,14 @@
 
 ---
 
+# v0.5.1
+
+### Bugfixes
+
+- Updated actions due to CHANGES.md format change.
+
+---
+
 # v0.5.0
 
 ### New
