@@ -49,5 +49,3 @@ namespace = "istio-system"
 
 depends_on = [kubectl_manifest.istio_system, helm_release.istiod]
 }
-
-curl -sL https://github.com/istio/istio/releases | grep -o 'releases/[0-9]_.[0-9]_.[0-9]\*/' | sort -V | tail -1 | awk -F'/' '{ print $2}'

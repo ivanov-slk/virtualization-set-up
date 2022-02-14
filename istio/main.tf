@@ -17,6 +17,10 @@ provider "helm" {
   }
 }
 
+data "external" "get_latest_istio_version" {
+  program = ["bash", "./istio/get-latest-istio.sh"]
+}
+
 # Ugly...
 resource "null_resource" "download_istio_charts" {
   triggers = {
@@ -24,11 +28,11 @@ resource "null_resource" "download_istio_charts" {
   }
 
   provisioner "local-exec" {
-    command = "cd ./istio/istio-charts && curl -L https://istio.io/downloadIstio | sh - && cd -"
+    command = "mkdir -p ./istio/istio-charts && cd ./istio/istio-charts && curl -L https://istio.io/downloadIstio | sh - && cd -"
   }
 
   provisioner "local-exec" {
     when    = destroy
-    command = "ls -al"
+    command = "rm -rf ./istio/istio-charts"
   }
 }
