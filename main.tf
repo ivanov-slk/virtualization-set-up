@@ -19,6 +19,16 @@ terraform {
   }
 }
 
+provider "kubectl" {
+  load_config_file = true
+}
+
+provider "helm" {
+  kubernetes {
+    config_path = "~/.kube/config"
+  }
+}
+
 module "packer-vmis" {
   source = "./packer-vmis"
   virtual_machine_image = var.virtual_machine_image
@@ -47,8 +57,8 @@ module "kubernetes-dashboard" {
   depends_on = [module.kubernetes-cluster]
 }
 
-module "istio" {
-  source = "./istio"
-
-  depends_on = [module.kubernetes-cluster]
-}
+#module "istio" {
+#  source = "./istio"
+#
+#  depends_on = [module.kubernetes-cluster]
+#}
