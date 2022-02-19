@@ -22,3 +22,28 @@ resource "null_resource" "set_strict_arp" {
     command = "kubectl get configmap kube-proxy -n kube-system -o yaml | sed -e 's/strictARP: true/strictARP: false/' | kubectl apply -f - -n kube-system"
   }
 }
+
+resource "kubectl_manifest" "metallb_namespace" {
+  yaml_body = file("./metallb/namespace-metallb.yaml")
+
+  depends_on = [null_resource.set_strict_arp]
+}
+
+resource "helm_release" "metallb" {
+  name       = "metallb"
+  repository = "https://metallb.github.io"
+  chart      = "metallb"
+
+  timeout         = 120
+  cleanup_on_fail = true
+  force_update    = true
+  namespace       = "metallb-system"
+
+  depends_on = [kubectl_manifest.metallb_namespace, null_resource.set_strict_arp]
+}
+
+resource "kubectl_manifest" "metallb_configmap" {
+  yaml_body = file("./metallb/configmap-metallb.yaml")
+
+  depends_on = [helm_release.metallb]
+}
