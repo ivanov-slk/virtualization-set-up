@@ -11,6 +11,7 @@ terraform {
     helm = {
       source  = "hashicorp/helm"
       version = ">= 2.4.1"
+
     }
     external = {
       source  = "hashicorp/external"
@@ -24,6 +25,7 @@ provider "kubectl" {
 }
 
 provider "helm" {
+  debug = true
   kubernetes {
     config_path = "~/.kube/config"
   }

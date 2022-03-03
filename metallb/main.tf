@@ -29,9 +29,15 @@ resource "kubectl_manifest" "metallb_namespace" {
   depends_on = [null_resource.set_strict_arp]
 }
 
+resource "kubectl_manifest" "metallb_configmap" {
+  yaml_body = file("./metallb/configmap-metallb.yaml")
+
+  depends_on = [kubectl_manifest.metallb_namespace]
+}
+
 resource "helm_release" "metallb" {
   name       = "metallb"
-  repository = "https://metallb.github.io"
+  repository = "https://metallb.github.io/metallb"
   chart      = "metallb"
 
   timeout         = 120
@@ -42,8 +48,4 @@ resource "helm_release" "metallb" {
   depends_on = [kubectl_manifest.metallb_namespace, null_resource.set_strict_arp]
 }
 
-resource "kubectl_manifest" "metallb_configmap" {
-  yaml_body = file("./metallb/configmap-metallb.yaml")
 
-  depends_on = [helm_release.metallb]
-}

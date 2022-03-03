@@ -18,14 +18,12 @@ resource "null_resource" "download_istio_charts" {
   }
 
   provisioner "local-exec" {
-    # command = "mkdir -p ./istio/istio-charts && cd ./istio/istio-charts && curl -L https://istio.io/downloadIstio | sh - && cd -"
-    command = "ls"
+    command = "mkdir -p ./istio/istio-charts && cd ./istio/istio-charts && curl -L https://istio.io/downloadIstio | sh - && cd -"
   }
 
   provisioner "local-exec" {
-    when = destroy
-    # command = "rm -rf ./istio/istio-charts"
-    command = "ls"
+    when    = destroy
+    command = "rm -rf ./istio/istio-charts"
   }
 }
 
