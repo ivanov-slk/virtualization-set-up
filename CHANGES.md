@@ -2,6 +2,15 @@
 
 ---
 
+# v0.6.0
+
+### New
+
+- Added MetalLB and an external IP for accessing the cluster;
+- Added Istio service mesh.
+
+---
+
 # v0.5.1
 
 ### Bugfixes

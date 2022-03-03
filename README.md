@@ -23,10 +23,18 @@ At this point, `vagrant` cannot be used to manage the virtual machines unless th
 
 The cluster comes with the Kubernetes dashboard installed. It can be accessed through a NodePort on port 30002 and with a token that is fetched using `kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')`.
 
+### MetalLB
+
+[MetalLB](https://metallb.universe.tf/) is needed so that an external IP of the kubernetes cluster can be used; otherwise `NodePort`s should be used, which is inconvenient. Installed via Helm.
+
+### Istio
+
+[Istio Service Mesh](https://istio.io/latest/) is installed using the latest available Helm charts.
+
 ## Usage
 
-You need to have Packer, Vagrant, Terraform, Ansible and VirtualBox installed.
-Run `terraform init && terraform plan` to get an idea of what will be executed. `terraform apply` it and you will get a working kubernetes cluster in minutes. `terraform destroy` will destroy all resources, cleaning up VirtualBox as well.
+You need to have Packer, Vagrant, Terraform, Ansible, Helm and VirtualBox installed.
+Run `terraform init && terraform plan` to get an idea of what will be executed. It is recommended to run `terraform apply -target=module.[...]` in the order the components are listed above. `terraform destroy` will destroy all resources, cleaning up VirtualBox machines as well.
 
 ## TO-DO
 

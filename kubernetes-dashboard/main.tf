@@ -7,10 +7,6 @@ terraform {
   }
 }
 
-provider "kubectl" {
-  load_config_file = true
-}
-
 resource "kubectl_manifest" "namespace" {
   yaml_body = file("./kubernetes-dashboard/manifests/namespace.yaml")
 }
