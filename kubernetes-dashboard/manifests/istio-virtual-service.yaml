@@ -5,12 +5,12 @@ metadata:
   namespace: kubernetes-dashboard
 spec:
   hosts:
-    - "ks.mycluster.com"
+    - "kubernetes-dashboard.my-cluster.local"
   gateways:
     - kubernetes-dashboard-gateway
   tls:
     - match:
-        - sniHosts: ["ks.mycluster.com"]
+        - sniHosts: ["kubernetes-dashboard.my-cluster.local"]
       route:
         - destination:
             host: kubernetes-dashboard-service

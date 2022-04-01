@@ -14,4 +14,4 @@ spec:
       tls:
         mode: PASSTHROUGH
       hosts:
-        - "ks.mycluster.com"
+        - "kubernetes-dashboard.my-cluster.local"
