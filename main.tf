@@ -59,6 +59,12 @@ module "kubernetes-dashboard" {
   #  depends_on = [module.kubernetes-cluster]
 }
 
+module "httpbin" {
+  source = "./httpbinexample"
+
+  #  depends_on = [module.kubernetes-cluster]
+}
+
 module "metallb" {
   source = "./metallb"
 }
