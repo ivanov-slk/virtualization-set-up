@@ -2,6 +2,14 @@
 
 ---
 
+# v0.7.0
+
+### New
+
+- Access to the Kubernetes Dashboard now configured through Istio on host `kubernetes-dashboard.my-cluster.local`.
+
+---
+
 # v0.6.0
 
 ### New

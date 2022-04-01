@@ -1,0 +1,18 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: kubernetes-dashboard-virtual-service
+  namespace: kubernetes-dashboard
+spec:
+  hosts:
+    - "kubernetes-dashboard.my-cluster.local"
+  gateways:
+    - kubernetes-dashboard-gateway
+  tls:
+    - match:
+        - sniHosts: ["kubernetes-dashboard.my-cluster.local"]
+      route:
+        - destination:
+            host: kubernetes-dashboard-service
+            port:
+              number: 443
