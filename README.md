@@ -19,10 +19,6 @@ At this point, `vagrant` cannot be used to manage the virtual machines unless th
 - i.e., if you want to `ssh` in a machine, you need to `export virtual_machine=""` and `export private_key_path=""` first and then `vagrant ssh vmi-name`.
 - check [this issue](https://github.com/bmatcuk/terraform-provider-vagrant/issues/21) for more information.
 
-### Kubernetes dashboard
-
-The cluster comes with the Kubernetes dashboard installed. It can be accessed through a NodePort on port 30002 and with a token that is fetched using `kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')`.
-
 ### MetalLB
 
 [MetalLB](https://metallb.universe.tf/) is needed so that an external IP of the kubernetes cluster can be used; otherwise `NodePort`s should be used, which is inconvenient. Installed via Helm.
@@ -30,6 +26,11 @@ The cluster comes with the Kubernetes dashboard installed. It can be accessed th
 ### Istio
 
 [Istio Service Mesh](https://istio.io/latest/) is installed using the latest available Helm charts.
+
+### Kubernetes dashboard
+
+The cluster comes with the Kubernetes dashboard installed. It can be accessed through a NodePort on port 30002 and with a token that is fetched using `kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')`.
+Alternatively, a host (`kubernetes-dashboard.my-cluster.local`) can be specified in `/etc/hosts` and used in browser.
 
 ## Usage
 
