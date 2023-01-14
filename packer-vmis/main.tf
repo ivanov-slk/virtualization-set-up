@@ -24,4 +24,10 @@ else
 fi
 EOF
   }
+
+  # # Keep the image to avoid rebuilding each time; uncomment when stable.
+  # provisioner "local-exec" {
+  #   when    = destroy
+  #   command = "rm -rf ./packer-vmis/${var.virtual_machine_image}.box"
+  # }
 }
