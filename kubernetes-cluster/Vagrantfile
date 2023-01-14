@@ -18,7 +18,8 @@ Vagrant.configure("2") do |config|
     config.ssh.insert_key = false
     config.ssh.private_key_path = private_key_path
 
-    # Probably linked to cyrillic characters; see https://github.com/hashicorp/vagrant/issues/13033
+    # It seems `vagrant` cannot work with cyrillic characters; 
+    # ssee https://github.com/hashicorp/vagrant/issues/13033
     config.vm.synced_folder ".", "/vagrant", disabled: true
     config.vm.synced_folder "/home/slav/.vagrant.tmp", "/vagrant", disabled: false
 
@@ -33,6 +34,7 @@ Vagrant.configure("2") do |config|
                 v.cpus = node_cpus
                 v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
                 v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+                v.customize ['modifyvm', :id, '--cableconnected1', 'on']
             end            
             node.vm.provision "ansible" do |ansible|
                 ansible.playbook = "./roles/k8s.yml"
