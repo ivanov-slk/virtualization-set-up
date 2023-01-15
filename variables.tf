@@ -10,7 +10,7 @@ variable "private_key_path" {
 
 variable "ip_base" {
   type    = string
-  default = "192.168.56"
+  default = "192.168.106"
 }
 
 variable "cluster_name" {
