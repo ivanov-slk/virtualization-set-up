@@ -1,7 +1,7 @@
 private_key_path = ENV.fetch("private_key_path", "/home/slav/.ssh/virtual_id_ed25519")
 virtual_machine_image = ENV.fetch("virtual_machine_image", "ubuntu-22.10-live-server-amd64")
 # virtual_machine_index = ENV.fetch("virtual_machine_index", "")
-ip_base = ENV.fetch("ip_base", "192.168.106")
+ip_base = ENV.fetch("ip_base", "192.168.56")
 ip_offset = ENV.fetch("ip_offset", "11").to_i
 #count_index = ENV.fetch("count_index", "").to_i
 
