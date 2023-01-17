@@ -20,6 +20,7 @@ Vagrant.configure("2") do |config|
     #     config.vbguest.auto_update = false
     #     config.vbguest.no_remote   = true
     # end
+    config.vm.network "public_network"
 
     config.ssh.insert_key = false
     config.ssh.private_key_path = private_key_path
