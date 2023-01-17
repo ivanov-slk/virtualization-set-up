@@ -15,11 +15,6 @@ node_count = ENV.fetch("node_count", "2").to_i
 VAGRANT_DISABLE_VBOXSYMLINKCREATE=1
 
 Vagrant.configure("2") do |config|
-    # if Vagrant.has_plugin? "vagrant-vbguest"
-    #     config.vbguest.no_install  = true
-    #     config.vbguest.auto_update = false
-    #     config.vbguest.no_remote   = true
-    # end
     config.vm.network "public_network"
 
     config.ssh.insert_key = false
@@ -35,18 +30,10 @@ Vagrant.configure("2") do |config|
             node.vm.box = virtual_machine_image
             node.vm.box_url = "file://../packer-vmis/#{virtual_machine_image}.box"
             node.vm.network "private_network", ip: "#{ip_base}.#{i + ip_offset}"
-            # node.vm.network "private_network", :type => 'dhcp'
-            # node.vm.network "private_network", :type => 'dhcp'
             node.vm.hostname = "#{node_name}-#{i}"
             node.vm.provider "virtualbox" do |v|
                 v.memory = node_memory
                 v.cpus = node_cpus
-                # v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-                # v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
-                # v.customize ['modifyvm', :id, '--cableconnected1', 'on']
-                # v.customize ["modifyvm", :id, "--nic2", "hostonly", "--hostonlyadapter2", "vboxnet0"]
-                # v.customize ["modifyvm", :id, "--nic3", "natnetwork"]
-                # v.customize ["modifyvm", :id, "--nat-network3", "NatNetwork"]
             end            
             node.vm.provision "ansible" do |ansible|
                 ansible.playbook = "./roles/k8s.yml"
