@@ -1,42 +1,33 @@
+# kubeadm-config.yaml
+kind: KubeletConfiguration
+apiVersion: kubelet.config.k8s.io/v1beta1
+cgroupDriver: systemd
+containerRuntime: remote
+---
 apiVersion: kubeadm.k8s.io/v1beta3
-bootstrapTokens:
-  - groups:
-      - system:bootstrappers:kubeadm:default-node-token
-    token: abcdef.0123456789abcdef
-    ttl: 24h0m0s
-    usages:
-      - signing
-      - authentication
 kind: InitConfiguration
+bootstrapTokens:
+- groups:
+  - system:bootstrappers:kubeadm:default-node-token
+  token: abcdef.0123456789abcdef
+  ttl: 24h0m0s
+  usages:
+  - signing
+  - authentication
 localAPIEndpoint:
   advertiseAddress: "{{ k8s_master_apiserver_advertise_address }}"
   bindPort: 6443
-nodeRegistration:
-  criSocket: unix:///var/run/containerd/containerd.sock
-  imagePullPolicy: IfNotPresent
-  name: master-1
-  taints:
-    - effect: NoSchedule
-      key: node-role.kubernetes.io/control-plane
 ---
-apiServer:
-  certSANs:
-    - 10.100.1.1
-    - "{{ k8s_master_apiserver_advertise_address }}"
-  timeoutForControlPlane: 4m0s
 apiVersion: kubeadm.k8s.io/v1beta3
-certificatesDir: /etc/kubernetes/pki
+kind: ClusterConfiguration
+apiServer:
+  timeoutForControlPlane: 4m0s
+  certSANs:
+    - "10.100.1.1"
+    - "{{ k8s_master_apiserver_advertise_address }}"  
 clusterName: "{{  k8s_cluster_name }}"
-controllerManager: {}
-dns: {}
 etcd:
   local:
     dataDir: /var/lib/etcd
-imageRepository: registry.k8s.io
-kind: ClusterConfiguration
-# kubernetesVersion: v1.26.1
 networking:
-  dnsDomain: cluster.local
   podSubnet: "{{ k8s_master_pod_network_cidr }}"
-  serviceSubnet: 10.96.0.0/12
-scheduler: {}
