@@ -31,11 +31,11 @@ provider "helm" {
   }
 }
 
-# module "packer-vmis" {
-#   source                = "./packer-vmis"
-#   virtual_machine_image = var.virtual_machine_image
-#   private_key_path      = var.private_key_path
-# }
+module "packer-vmis" {
+  source                = "./packer-vmis"
+  virtual_machine_image = var.virtual_machine_image
+  private_key_path      = var.private_key_path
+}
 
 module "kubernetes-cluster" {
   source                = "./kubernetes-cluster"
@@ -53,11 +53,6 @@ module "kubernetes-cluster" {
   # depends_on = [module.packer-vmis]
 }
 
-# module "httpbin" {
-#   source = "./httpbinexample"
-
-#    depends_on = [module.kubernetes-cluster]
-# }
 
 module "metallb" {
   source = "./metallb"
