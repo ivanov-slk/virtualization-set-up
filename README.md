@@ -52,3 +52,18 @@ Run `terraform init && terraform plan` to get an idea of what will be executed. 
 - Ensure latest Kubernetes is running;
 - Add modules to Terraform;
 - Tests?
+
+## Random notes
+
+### Update to `containerd` `config.toml`
+
+- Branch `use-latest-ubuntu-server-image`; check commit log and links for more details.
+- Ubuntu 22.04 _apparently_ introduced a change that broke the `cgroup` driver configuration and the previous `containerd` configuration stopped working. What does work is forcing `containerd` to use `systemd`'s `cgroup` driver.
+  - https://github.com/kubernetes/kubernetes/issues/110177
+  - https://github.com/containerd/containerd/issues/4203
+  - https://github.com/kubernetes/kubeadm/issues/2449
+  - https://github.com/containerd/containerd/issues/4581
+  - https://github.com/containerd/containerd/blob/main/docs/cri/config.md
+  - https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd-systemd
+  - https://kubernetes.io/docs/setup/production-environment/container-runtimes/#systemd-cgroup-driver
+  - https://kubernetes.io/docs/concepts/architecture/cgroups/#using-cgroupv2
