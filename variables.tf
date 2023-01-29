@@ -25,7 +25,7 @@ variable "master_count" {
 
 variable "master_cpus" {
   type    = number
-  default = 4
+  default = 1
 }
 
 variable "master_memory" {
@@ -35,15 +35,15 @@ variable "master_memory" {
 
 variable "worker_count" {
   type    = number
-  default = 4
+  default = 5
 }
 
 variable "worker_cpus" {
   type    = number
-  default = 4
+  default = 2
 }
 
 variable "worker_memory" {
   type    = number
-  default = 8192
+  default = 4096
 }
