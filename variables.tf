@@ -25,7 +25,7 @@ variable "master_count" {
 
 variable "master_cpus" {
   type    = number
-  default = 1
+  default = 2
 }
 
 variable "master_memory" {
