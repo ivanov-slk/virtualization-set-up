@@ -2,6 +2,22 @@
 
 ---
 
+# v0.8.0
+
+### New
+
+- Add bridged adapter to VMs.
+
+### Maintenance
+
+- Now using Ubuntu Server 22.10 for `packer` builds;
+- Kubernetes cluster configured to use Ubuntu Server 22.10 and Kubernetes 1.26;
+- Add default values to `Vagrantfile` so that it could be run independently from Terraform;
+- Update `containerd` installation due to issues, check README.md for more information;
+- Fully migrate to `cloud-init` for Ubuntu unattended installation;
+
+---
+
 # v0.7.0
 
 ### New
