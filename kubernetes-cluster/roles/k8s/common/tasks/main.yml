@@ -37,14 +37,6 @@
     reload: yes
   loop: "{{ k8s_common_sysctl }}"
 
-# https://github.com/containerd/containerd/issues/4581
-# File etc/containerd/config.toml needs to be deleted before kubeadm init
-- name: Configure containerd.conf
-  template:
-    src: etc/containerd/config.toml
-    dest: /etc/containerd/config.toml
-  notify: restart containerd
-
 - name: Configure node-ip {{ k8s_node_public_ip }} at kubelet
   lineinfile:
     path: '/etc/systemd/system/kubelet.service.d/10-kubeadm.conf'
@@ -54,16 +46,22 @@
     state: present
   notify: restart kubelet
 
-- name: restart containerd
-  service: 
-    name: containerd 
-    state: restarted 
-    daemon_reload: yes
-
 - name: Delete configuration for containerd.conf as kubeadm is unable to detect containerd (see https://github.com/containerd/containerd/issues/4581)
   file:
     state: absent
     path:  /etc/containerd/config.toml
+
+- name: Copy custom config.toml for containerd.
+  template:
+    src: etc/containerd/config.toml
+    dest: /etc/containerd/config.toml
+  notify: restart containerd
+
+- name: Restart containerd.
+  service: 
+    name: containerd 
+    state: restarted 
+    daemon_reload: yes
 
 - name: Restart services if needed
   meta: flush_handlers

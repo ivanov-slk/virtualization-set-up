@@ -1,6 +1,6 @@
 variable "virtual_machine_image" {
   type    = string
-  default = "ubuntu-20.04.3-live-server-amd64"
+  default = "ubuntu-22.10-live-server-amd64"
 }
 
 variable "private_key_path" {
@@ -25,7 +25,7 @@ variable "master_count" {
 
 variable "master_cpus" {
   type    = number
-  default = 4
+  default = 2
 }
 
 variable "master_memory" {
@@ -40,10 +40,10 @@ variable "worker_count" {
 
 variable "worker_cpus" {
   type    = number
-  default = 4
+  default = 2
 }
 
 variable "worker_memory" {
   type    = number
-  default = 8192
+  default = 4096
 }

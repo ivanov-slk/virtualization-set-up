@@ -50,28 +50,27 @@ module "kubernetes-cluster" {
   worker_cpus           = var.worker_cpus
   worker_memory         = var.worker_memory
 
-  #  depends_on = [module.packer-vmis]
+  # depends_on = [module.packer-vmis]
+}
+
+
+module "metallb" {
+  source = "./metallb"
+
+  depends_on = [
+    module.kubernetes-cluster
+  ]
 }
 
 module "kubernetes-dashboard" {
   source = "./kubernetes-dashboard"
 
-  #  depends_on = [module.kubernetes-cluster]
+  depends_on = [module.metallb]
 }
 
-module "httpbin" {
-  source = "./httpbinexample"
+# module "istio" {
+#   source = "./istio"
 
-  #  depends_on = [module.kubernetes-cluster]
-}
-
-module "metallb" {
-  source = "./metallb"
-}
-
-module "istio" {
-  source = "./istio"
-
-  #depends_on = [module.kubernetes-cluster]
-}
+#   depends_on = [module.kubernetes-cluster]
+# }
 
