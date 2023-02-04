@@ -55,7 +55,7 @@ module "kubernetes-cluster" {
 
 
 module "metallb" {
-  source = "./metallb"
+  source = "./metallb-configuration"
 
   depends_on = [
     module.kubernetes-cluster
