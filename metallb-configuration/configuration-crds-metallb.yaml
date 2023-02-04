@@ -14,5 +14,4 @@ metadata:
   namespace: metallb-system
 spec:
   ipAddressPools:
-  - metallb-ipaddress-pool
-   
+    - metallb-ipaddress-pool

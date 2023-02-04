@@ -29,8 +29,8 @@ resource "kubectl_manifest" "metallb_namespace" {
   depends_on = [null_resource.set_strict_arp]
 }
 
-resource "kubectl_manifest" "metallb_configmap" {
-  yaml_body = file("./metallb/configmap-metallb.yaml")
+resource "kubectl_manifest" "metallb_configuration_crds" {
+  yaml_body = file("./metallb/configuration-crds-metallb.yaml")
 
   depends_on = [kubectl_manifest.metallb_namespace]
 }
