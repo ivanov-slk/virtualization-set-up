@@ -95,6 +95,12 @@ resource "kubectl_manifest" "service-dashboard" {
   depends_on = [kubectl_manifest.namespace]
 }
 
+resource "kubectl_manifest" "service-dashboard-lb" {
+  yaml_body = file("./kubernetes-dashboard/manifests/service-dashboard-lb.yaml")
+
+  depends_on = [kubectl_manifest.namespace]
+}
+
 resource "kubectl_manifest" "service-np-dashboard" {
   yaml_body = file("./kubernetes-dashboard/manifests/service-np-dashboard.yaml")
 
@@ -107,14 +113,14 @@ resource "kubectl_manifest" "service-metrics" {
   depends_on = [kubectl_manifest.namespace]
 }
 
-resource "kubectl_manifest" "istio-gateway" {
-  yaml_body = file("./kubernetes-dashboard/manifests/istio-gateway.yaml")
+# resource "kubectl_manifest" "istio-gateway" {
+#   yaml_body = file("./kubernetes-dashboard/manifests/istio-gateway.yaml")
 
-  depends_on = [kubectl_manifest.namespace, kubectl_manifest.service-dashboard]
-}
+#   depends_on = [kubectl_manifest.namespace, kubectl_manifest.service-dashboard]
+# }
 
-resource "kubectl_manifest" "istio-virtual-service" {
-  yaml_body = file("./kubernetes-dashboard/manifests/istio-virtual-service.yaml")
+# resource "kubectl_manifest" "istio-virtual-service" {
+#   yaml_body = file("./kubernetes-dashboard/manifests/istio-virtual-service.yaml")
 
-  depends_on = [kubectl_manifest.namespace, kubectl_manifest.service-dashboard, kubectl_manifest.istio-gateway]
-}
+#   depends_on = [kubectl_manifest.namespace, kubectl_manifest.service-dashboard, kubectl_manifest.istio-gateway]
+# }
