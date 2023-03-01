@@ -51,3 +51,5 @@ metallb-speaker-l4dr8
 - Turned on promiscuous mode `sudo ifconfig enp0s9 promisc` on both nodes and tried `tcpdump` again, same results.
 - If I do the `curl` command from `worker-4` (where the dashboard is deployed), I get success, but nothing in `tcpdump`.
 - Tried [this SO answer](https://serverfault.com/a/125500); value is 0 for both nodes, which seems ok.
+- Checked `/etc/hosts.allow` and `/etc/hosts.deny` on both nodes, no rules there.
+- https://www.practicalnetworking.net has good materials on networking.
