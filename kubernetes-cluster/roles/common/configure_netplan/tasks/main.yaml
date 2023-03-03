@@ -1,0 +1,16 @@
+- name: Remove existing netplan configurations
+  ansible.builtin.file:
+    path: /etc/netplan/{{ item }}
+    state: absent
+  with_fileglob: *.yaml
+
+- name: Template the network configuration to /etc/netplan/custom_config.yaml
+  ansible.builtin.template:
+    src: custom_config.yaml
+    dest: /etc/netplan/custom_config.yaml
+
+# https://stackoverflow.com/a/60079062/10785101
+- name: Apply new netplan configuration
+  command: sudo netplan apply 
+  async: 45
+  poll: 0
