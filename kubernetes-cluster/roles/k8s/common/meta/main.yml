@@ -2,7 +2,7 @@ dependencies:
   - { role: common/pam_limits }
   - {
       role: common/configure_netplan,
-      node_public_ip: " {{ k8s_node_public_ip }}",
+      node_public_ip: "{{ k8s_node_public_ip }}",
     }
   - {
       role: common/add_packages,
