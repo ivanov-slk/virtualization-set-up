@@ -13,7 +13,7 @@
 
 - name: Template the network configuration to /etc/netplan/custom_config.yaml
   ansible.builtin.template:
-    src: custom_config.yaml
+    src: templates/custom_config.yaml
     dest: /etc/netplan/custom_config.yaml
 
 # https://stackoverflow.com/a/60079062/10785101
