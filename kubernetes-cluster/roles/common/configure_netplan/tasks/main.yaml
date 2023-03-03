@@ -7,7 +7,7 @@
 
 - name: Remove existing netplan configurations
   ansible.builtin.file:
-    path: "{{ item }}"
+    path: "{{ item.path }}"
     state: absent
   loop: "{{ to_delete.files }}"
 
