@@ -1,14 +1,13 @@
 # https://www.reddit.com/r/ansible/comments/9jfc5x/comment/e6qz4pm/?utm_source=share&utm_medium=web2x&context=3
 - name: Get existing netplan configurations
-  find:
-    path: "/etc/netplan"
+  ansible.builtin.find:
+    path: /etc/netplan
     patterns: "*.yaml"
-    use_regex: yes
   register: to_delete
 
 - name: Remove existing netplan configurations
   ansible.builtin.file:
-    path: "/etc/netplan/{{ item }}"
+    path: "{{ item }}"
     state: absent
   loop: "{{ to_delete.files }}"
 
