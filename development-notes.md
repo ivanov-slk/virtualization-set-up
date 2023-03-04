@@ -53,3 +53,8 @@ metallb-speaker-l4dr8
 - Tried [this SO answer](https://serverfault.com/a/125500); value is 0 for both nodes, which seems ok.
 - Checked `/etc/hosts.allow` and `/etc/hosts.deny` on both nodes, no rules there.
 - https://www.practicalnetworking.net has good materials on networking.
+
+### Fixing large memory usage
+
+- Apparently due to [caching](https://www.virtualbox.org/manual/ch05.html#iocaching) by VirtualBox.
+- Old example [here](https://gist.github.com/eloycoto/abfe35b8936bf728494e).
