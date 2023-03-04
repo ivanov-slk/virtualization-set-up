@@ -54,6 +54,7 @@ source "virtualbox-iso" "ubuntu-server-vmi" {
   ssh_wait_timeout        = "10000s"
   virtualbox_version_file = ".vbox_version"
   vm_name                 = "packer-${var.os_version_name}"
+  hard_drive_interface    = "sata"
 }
 
 build {
