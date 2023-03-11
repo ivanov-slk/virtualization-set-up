@@ -58,3 +58,14 @@ metallb-speaker-l4dr8
 
 - Apparently due to [caching](https://www.virtualbox.org/manual/ch05.html#iocaching) by VirtualBox.
 - Old example [here](https://gist.github.com/eloycoto/abfe35b8936bf728494e).
+
+### Fixing Calico nodes occasionally entering crash loops
+
+- The error is:
+  - `2023-03-11 10:59:22.772 [ERROR][79] felix/health.go 360: Health endpoint failed, trying to restart it... error=listen tcp: lookup localhost on 8.8.8.8:53: no such host`
+  - it appears kind of randomly when I recreate the cluster;
+- Tried [setting IP autodetection method](https://docs.tigera.io/archive/v3.8/reference/node/configuration#ip-setting) with interface, but only `enp0s8` got as far as not setting autodetection manually. The other options (`enp0s3,enp0s8` or `enp0s3`) I tried resulted in earlier errors.
+  - Similar information [here](https://github.com/projectcalico/calico/issues/2042).
+- Tried setting the localhost for the probes and it worked.
+  - Reference [here](https://github.com/projectcalico/calico/issues/6963#issuecomment-1307930491).
+  - It seems more like a patch instead of a solution though.
