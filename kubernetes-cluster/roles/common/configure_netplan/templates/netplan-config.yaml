@@ -7,6 +7,7 @@ network:
       routes:
         - to: default
           via: "10.0.2.2"
+          metric: "50"
       nameservers:
         addresses: #Below I chose to use google as the DNS servers. You can choose other DNS servers if you'd like.
           - "8.8.8.8"
@@ -18,7 +19,6 @@ network:
       routes:
         - to: default
           via: "192.168.56.1"
-          metric: "50"
-      nameservers:
-        addresses:
-          - "192.168.1.200"
+      # nameservers:
+      #   addresses:
+      #     - "192.168.1.200"
