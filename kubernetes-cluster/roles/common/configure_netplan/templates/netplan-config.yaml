@@ -7,7 +7,6 @@ network:
       routes:
         - to: default
           via: "10.0.2.2"
-          metric: "50"
       nameservers:
         addresses: #Below I chose to use google as the DNS servers. You can choose other DNS servers if you'd like.
           - "8.8.8.8"
@@ -15,10 +14,11 @@ network:
     enp0s8: #This is your network adapter attached to Host-only
       dhcp4: no
       addresses:
-        - "{{ node_public_ip }}/24" #This is the static IP.
+        - "{{ node_public_ip }}" #This is the static IP.
       routes:
         - to: default
           via: "192.168.56.1"
+          metric: "50"
       # nameservers:
       #   addresses:
       #     - "192.168.1.200"
