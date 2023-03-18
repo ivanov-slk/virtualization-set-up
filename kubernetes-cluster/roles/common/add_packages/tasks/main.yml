@@ -65,4 +65,4 @@
 
 ### debug
 - name: Execute the command in remote shell; stdout goes to the specified file on the remote
-  ansible.builtin.shell: pip3 install kubernetes
+  ansible.builtin.shell: pip install kubernetes
