@@ -67,7 +67,7 @@
 # https://github.com/projectcalico/calico/issues/6963#issuecomment-1307930491
 - name: Add Felix health host for Calico
   kubernetes.core.k8s:
-    kubeconfig: ~/.kube/config
+    kubeconfig: /home/vagrant/.kube/config
     state: patched
     kind: DaemonSet
     name: calico-node
