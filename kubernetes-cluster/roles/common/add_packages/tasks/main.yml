@@ -63,6 +63,5 @@
   delay: 5
   until: apt_install_packages is succeeded
 
-### debug
-- name: Execute the command in remote shell; stdout goes to the specified file on the remote
+- name: Install python package on the node
   ansible.builtin.shell: pip install kubernetes
