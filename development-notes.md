@@ -70,3 +70,4 @@ metallb-speaker-l4dr8
   - Reference [here](https://github.com/projectcalico/calico/issues/6963#issuecomment-1307930491).
   - It seems more like a patch instead of a solution though.
 - It seems there are various ways to configure Felix, as per their [documentation](https://docs.tigera.io/calico/3.25/reference/felix/configuration). However, automating the addition of `FELIX_HEALTHHOST` seems clumsy with them. The easiest approach would be to use `kubectl patch` with a patch file, or even easier with `kubectl set env daemonset/calico-node FELIX_HEALTHHOST="127.0.0.1"`.
+  - Finally (2023-03-19), the patch was implemented in Ansible and this seems to resolve the issue.
