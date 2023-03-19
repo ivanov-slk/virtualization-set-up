@@ -14,7 +14,7 @@ network:
     enp0s8: #This is your network adapter attached to Host-only
       dhcp4: no
       addresses:
-        - "{{ node_public_ip }}" #This is the static IP.
+        - "{{ node_public_ip }}/24" #This is the static IP.
       routes:
         - to: default
           via: "192.168.56.1"
