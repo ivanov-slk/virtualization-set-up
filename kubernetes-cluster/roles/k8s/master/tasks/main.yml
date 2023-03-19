@@ -75,8 +75,9 @@
     definition:
       spec:
         template:
-          containers:
-            - env:
-                - name: FELIX_HEALTHHOST
-                  value: "127.0.0.1"
-              name: calico-node
+          spec:
+            containers:
+              - env:
+                  - name: FELIX_HEALTHHOST
+                    value: "127.0.0.1"
+                name: calico-node
