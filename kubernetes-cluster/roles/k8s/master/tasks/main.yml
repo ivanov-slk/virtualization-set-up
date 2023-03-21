@@ -72,6 +72,7 @@
     kind: DaemonSet
     name: calico-node
     namespace: kube-system
+    wait: true
     definition:
       spec:
         template:
