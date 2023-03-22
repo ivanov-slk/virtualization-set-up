@@ -62,7 +62,7 @@ resource "time_sleep" "wait_for_pods_to_get_ready" {
 module "metallb" {
   source = "./metallb-configuration"
 
-  depends_on = [module.kubernetes-cluster, module.time_sleep]
+  depends_on = [module.kubernetes-cluster, time_sleep.wait_for_pods_to_get_ready]
 }
 
 module "kubernetes-dashboard" {
