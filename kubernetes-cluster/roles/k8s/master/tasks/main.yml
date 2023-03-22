@@ -72,7 +72,6 @@
     kind: DaemonSet
     name: calico-node
     namespace: kube-system
-    wait: true
     definition:
       spec:
         template:
@@ -82,7 +81,3 @@
                   - name: FELIX_HEALTHHOST
                     value: "127.0.0.1"
                 name: calico-node
-
-- name: Wait for pods to be ready
-  ansible.builtin.wait_for:
-    timeout: 120
