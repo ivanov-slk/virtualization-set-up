@@ -56,7 +56,7 @@ module "kubernetes-cluster" {
 resource "time_sleep" "wait-for-pods-to-initialize" {
   depends_on = [module.kubernetes-cluster]
 
-  create_duration = "5m"
+  create_duration = "1m"
 }
 
 module "metallb" {
