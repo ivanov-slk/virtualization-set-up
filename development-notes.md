@@ -53,7 +53,13 @@ metallb-speaker-l4dr8
 - Tried [this SO answer](https://serverfault.com/a/125500); value is 0 for both nodes, which seems ok.
 - Checked `/etc/hosts.allow` and `/etc/hosts.deny` on both nodes, no rules there.
 - Tried setting `externalTrafficPolicy: Local` in the k8s service, no success;
-- Tried removing the strict ARP resource (apparently needed only when using IPVS); same thing.
+- Tried removing the strict ARP resource (apparently needed only when using IPVS); same thing;
+- Set log level to `all` in the DS, seeing debug messages, but nothing useful;
+- I can connect to the nodes, though, so the host machine knows about them and how to access them.
+- `tcpdump`-ing the gateway (`192.168.56.1`) shows the same results - ARP requests, but no replies. The master's `tcpdump` shows more traffic; on the workers only ARP appears.
+
+- ? try bgp
+- ? set 192.168.56.1 as default gateway for host-only
 
 - https://www.practicalnetworking.net has good materials on networking.
 - [Good resource](https://danielmiessler.com/study/tcpdump/) on using `tcpdump`.

@@ -17,5 +17,5 @@ network:
         - "{{ node_public_ip }}/24" #This is the static IP.
       routes:
         - to: default
-          via: "192.168.56.1"
+          via: "192.168.56.200"
           metric: "50"
