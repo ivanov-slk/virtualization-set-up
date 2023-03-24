@@ -52,6 +52,8 @@ metallb-speaker-l4dr8
 - If I do the `curl` command from `worker-4` (where the dashboard is deployed), I get success, but nothing in `tcpdump`.
 - Tried [this SO answer](https://serverfault.com/a/125500); value is 0 for both nodes, which seems ok.
 - Checked `/etc/hosts.allow` and `/etc/hosts.deny` on both nodes, no rules there.
+- Tried setting `externalTrafficPolicy: Local` in the k8s service, no success;
+- Tried removing the strict ARP resource (apparently needed only when using IPVS); same thing.
 
 - https://www.practicalnetworking.net has good materials on networking.
 - [Good resource](https://danielmiessler.com/study/tcpdump/) on using `tcpdump`.

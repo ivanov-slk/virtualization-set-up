@@ -27,3 +27,4 @@ spec:
   selector:
     k8s-app: kubernetes-dashboard
   type: LoadBalancer
+  externalTrafficPolicy: Local
