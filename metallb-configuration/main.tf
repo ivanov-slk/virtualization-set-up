@@ -7,26 +7,26 @@ terraform {
   }
 }
 
-# Ugly... need to change to strict ARP per https://metallb.universe.tf/installation/
-resource "null_resource" "set_strict_arp" {
-  triggers = {
-    always_run = "${timestamp()}"
-  }
+# # Ugly... need to change to strict ARP per https://metallb.universe.tf/installation/
+# resource "null_resource" "set_strict_arp" {
+#   triggers = {
+#     always_run = "${timestamp()}"
+#   }
 
-  provisioner "local-exec" {
-    command = "kubectl get configmap kube-proxy -n kube-system -o yaml | sed -e 's/strictARP: false/strictARP: true/' | kubectl apply -f - -n kube-system"
-  }
+#   provisioner "local-exec" {
+#     command = "kubectl get configmap kube-proxy -n kube-system -o yaml | sed -e 's/strictARP: false/strictARP: true/' | kubectl apply -f - -n kube-system"
+#   }
 
-  provisioner "local-exec" {
-    when    = destroy
-    command = "kubectl get configmap kube-proxy -n kube-system -o yaml | sed -e 's/strictARP: true/strictARP: false/' | kubectl apply -f - -n kube-system"
-  }
-}
+#   provisioner "local-exec" {
+#     when    = destroy
+#     command = "kubectl get configmap kube-proxy -n kube-system -o yaml | sed -e 's/strictARP: true/strictARP: false/' | kubectl apply -f - -n kube-system"
+#   }
+# }
 
 resource "kubectl_manifest" "metallb_namespace" {
   yaml_body = file("./metallb-configuration/namespace-metallb.yaml")
 
-  depends_on = [null_resource.set_strict_arp]
+  # depends_on = [null_resource.set_strict_arp]
 }
 
 resource "kubectl_manifest" "metallb_configuration_crds" {
@@ -45,7 +45,7 @@ resource "helm_release" "metallb" {
   force_update    = true
   namespace       = "metallb-system"
 
-  depends_on = [kubectl_manifest.metallb_namespace, null_resource.set_strict_arp]
+  depends_on = [kubectl_manifest.metallb_namespace]
 }
 
 
