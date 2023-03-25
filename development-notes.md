@@ -57,12 +57,13 @@ metallb-speaker-l4dr8
 - Set log level to `all` in the DS, seeing debug messages, but nothing useful;
 - I can connect to the nodes, though, so the host machine knows about them and how to access them.
 - `tcpdump`-ing the gateway (`192.168.56.1`) shows the same results - ARP requests, but no replies. The master's `tcpdump` shows more traffic; on the workers only ARP appears.
+- Tried configuring BGP using some default configurations, same result - internally it works, from host - no.
 
-- ? try bgp
 - ? set 192.168.56.1 as default gateway for host-only
 
 - https://www.practicalnetworking.net has good materials on networking.
 - [Good resource](https://danielmiessler.com/study/tcpdump/) on using `tcpdump`.
+- [On `/proc`](https://wizardzines.com/comics/proc/).
 
 ### Fixing large memory usage
 
