@@ -58,6 +58,7 @@ metallb-speaker-l4dr8
 - I can connect to the nodes, though, so the host machine knows about them and how to access them.
 - `tcpdump`-ing the gateway (`192.168.56.1`) shows the same results - ARP requests, but no replies. The master's `tcpdump` shows more traffic; on the workers only ARP appears.
 - Tried configuring BGP using some default configurations, same result - internally it works, from host - no.
+- Tried setting kube-proxy to IPVS, same result.
 
 - ? set 192.168.56.1 as default gateway for host-only
 
