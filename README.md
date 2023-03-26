@@ -14,6 +14,8 @@ Packer is used to create a Ubuntu server virtual machine image for `vagrant` (.b
 
 Provisions a Kubernetes cluster in VirtualBox with the desired configuration. The virtual machines are provisioned with `vagrant`. The Kubernetes cluster is configured with `Ansible`. Terraform manages these resources.
 
+Logging in via SSH can be done by `ssh vagrant@localhost -p 2200 -i ~/.ssh/private-key`.
+
 At this point, `vagrant` cannot be used to manage the virtual machines unless the environment variables for the VMI name and the SSH private key are explicitly set.
 
 - i.e., if you want to `ssh` in a machine, you need to `export virtual_machine=""` and `export private_key_path=""` first and then `vagrant ssh vmi-name`.
@@ -23,14 +25,10 @@ At this point, `vagrant` cannot be used to manage the virtual machines unless th
 
 [MetalLB](https://metallb.universe.tf/) is needed so that an external IP of the kubernetes cluster can be used; otherwise `NodePort`s should be used, which is inconvenient. Installed via Helm.
 
-### Istio
-
-[Istio Service Mesh](https://istio.io/latest/) is installed using the latest available Helm charts.
-
 ### Kubernetes dashboard
 
-The cluster comes with the Kubernetes dashboard installed. It can be accessed through a NodePort on port 30002 and with a token that is fetched using `kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')`.
-Alternatively, a host (`kubernetes-dashboard.my-cluster.local`) can be specified in `/etc/hosts` and used in browser.
+The cluster comes with the Kubernetes dashboard installed. It can be accessed via a `LoadBalancer` service through IP or through a `NodePort` on port 30002 and with a token that is fetched using `kubectl -n kubernetes-dashboard create token admin-user`.
+Alternatively, a host like (`kubernetes-dashboard.my-cluster.local`) can be specified in `/etc/hosts` and used in browser.
 
 ## Usage
 

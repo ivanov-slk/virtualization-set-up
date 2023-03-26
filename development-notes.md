@@ -2,9 +2,7 @@
 
 ### Task list
 
-- Use latest Ubuntu server image;
 - Deploy `linkerd` instead of `istio`;
-- Ensure latest Kubernetes is running;
 - Add modules to Terraform;
 - Tests?
 

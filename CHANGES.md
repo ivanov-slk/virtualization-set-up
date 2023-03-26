@@ -2,6 +2,19 @@
 
 ---
 
+# v0.9.0
+
+### New
+
+- Remove bridged adapter;
+- Add explicit configuration for NAT.
+
+### Maintenance
+
+- Use the latest version of the Kuberentes Dashboard.
+
+---
+
 # v0.8.0
 
 ### New
