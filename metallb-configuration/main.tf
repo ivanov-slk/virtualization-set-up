@@ -7,6 +7,7 @@ terraform {
   }
 }
 
+# Now set during setting up the Kubernetes cluster.
 # # Ugly... need to change to strict ARP per https://metallb.universe.tf/installation/
 # resource "null_resource" "set_strict_arp" {
 #   triggers = {

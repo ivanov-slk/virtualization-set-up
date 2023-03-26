@@ -39,7 +39,7 @@ metallb-speaker-l4dr8
 ```
 
 - These look like pretty standard logs; it doesn't look that they appear when I execute the `curl` command.
-- Tried `sudo tcpdump -i enp0s9 host 192.168.56.46 -vv` on both `worker-4` and `master-1`, which are the only active nodes:
+- Tried `sudo tcpdump -i enp0s8 host 192.168.56.46 -vv` on both `worker-4` and `master-1`, which are the only active nodes:
   ```
   tcpdump: listening on enp0s9, link-type EN10MB (Ethernet), snapshot length 262144 bytes
   19:13:41.295688 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has kubernetes-dashboard.my-cluster.local tell Slav-PC, length 46
@@ -48,7 +48,7 @@ metallb-speaker-l4dr8
   ```
   - The requests are coming in, but they get dropped or something.
   - Tried all active network interfaces, but only on `enp0s9` (the bridged adapter) traffic comes in.
-- Turned on promiscuous mode `sudo ifconfig enp0s9 promisc` on both nodes and tried `tcpdump` again, same results.
+- Turned on promiscuous mode `sudo ifconfig enp0s8 promisc` on both nodes and tried `tcpdump` again, same results.
 - If I do the `curl` command from `worker-4` (where the dashboard is deployed), I get success, but nothing in `tcpdump`.
 - Tried [this SO answer](https://serverfault.com/a/125500); value is 0 for both nodes, which seems ok.
 - Checked `/etc/hosts.allow` and `/etc/hosts.deny` on both nodes, no rules there.
@@ -58,9 +58,27 @@ metallb-speaker-l4dr8
 - I can connect to the nodes, though, so the host machine knows about them and how to access them.
 - `tcpdump`-ing the gateway (`192.168.56.1`) shows the same results - ARP requests, but no replies. The master's `tcpdump` shows more traffic; on the workers only ARP appears.
 - Tried configuring BGP using some default configurations, same result - internally it works, from host - no.
-- Tried setting kube-proxy to IPVS, same result.
+- Tried setting kube-proxy to IPVS, same result; same with also enabling promiscuous mode on `enp0s8`.
+- Recreated the cluster with the latest settings (IPVS, gateway 192.168.56.1 for host-only network). The behavior now is a bit different (the below output is seen only on master, `tcpdump` on workers is silent):
 
-- ? set 192.168.56.1 as default gateway for host-only
+```
+vagrant@master-1:~$ sudo tcpdump -i enp0s8 host 192.168.56.46 -vv
+tcpdump: listening on enp0s8, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+06:03:29.834424 IP (tos 0x0, ttl 64, id 51942, offset 0, flags [DF], proto TCP (6), length 60)
+    _gateway.52868 > master-1.https: Flags [S], cksum 0x62c0 (correct), seq 581808951, win 64240, options [mss 1460,sackOK,TS val 2385626232 ecr 0,nop,wscale 7], length 0
+06:03:52.883432 IP (tos 0x0, ttl 64, id 16155, offset 0, flags [DF], proto TCP (6), length 60)
+    _gateway.37884 > master-1.https: Flags [S], cksum 0xf565 (correct), seq 134224830, win 64240, options [mss 1460,sackOK,TS val 2385649281 ecr 0,nop,wscale 7], length 0
+06:03:53.898432 IP (tos 0x0, ttl 64, id 16156, offset 0, flags [DF], proto TCP (6), length 60)
+    _gateway.37884 > master-1.https: Flags [S], cksum 0xf16e (correct), seq 134224830, win 64240, options [mss 1460,sackOK,TS val 2385650296 ecr 0,nop,wscale 7], length 0
+06:03:55.914412 IP (tos 0x0, ttl 64, id 16157, offset 0, flags [DF], proto TCP (6), length 60)
+    _gateway.37884 > master-1.https: Flags [S], cksum 0xe98e (correct), seq 134224830, win 64240, options [mss 1460,sackOK,TS val 2385652312 ecr 0,nop,wscale 7], length 0
+06:03:57.994345 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has master-1 tell _gateway, length 46
+06:03:57.994368 ARP, Ethernet (len 6), IPv4 (len 4), Reply master-1 is-at 08:00:27:96:6b:0b (oui Unknown), length 28
+06:04:00.042448 IP (tos 0x0, ttl 64, id 16158, offset 0, flags [DF], proto TCP (6), length 60)
+    _gateway.37884 > master-1.https: Flags [S], cksum 0xd96e (correct), seq 134224830, win 64240, options [mss 1460,sackOK,TS val 2385656440 ecr 0,nop,wscale 7], length 0
+06:04:08.234394 IP (tos 0x0, ttl 64, id 16159, offset 0, flags [DF], proto TCP (6), length 60)
+    _gateway.37884 > master-1.https: Flags [S], cksum 0xb96e (correct), seq 134224830, win 64240, options [mss 1460,sackOK,TS val 2385664632 ecr 0,nop,wscale 7], length 0
+```
 
 - https://www.practicalnetworking.net has good materials on networking.
 - [Good resource](https://danielmiessler.com/study/tcpdump/) on using `tcpdump`.
