@@ -80,6 +80,8 @@ tcpdump: listening on enp0s8, link-type EN10MB (Ethernet), snapshot length 26214
     _gateway.37884 > master-1.https: Flags [S], cksum 0xb96e (correct), seq 134224830, win 64240, options [mss 1460,sackOK,TS val 2385664632 ecr 0,nop,wscale 7], length 0
 ```
 
+- Changing `externalTrafficPolicy` from `Local` to `Cluster` in the `LoadBalancer` service resolved the problem.
+
 - https://www.practicalnetworking.net has good materials on networking.
 - [Good resource](https://danielmiessler.com/study/tcpdump/) on using `tcpdump`.
 - [On `/proc`](https://wizardzines.com/comics/proc/).
