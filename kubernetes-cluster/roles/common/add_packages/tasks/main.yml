@@ -62,3 +62,6 @@
   retries: 10
   delay: 5
   until: apt_install_packages is succeeded
+
+- name: Install python package on the node
+  ansible.builtin.shell: pip install kubernetes

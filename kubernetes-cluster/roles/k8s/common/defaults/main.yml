@@ -13,6 +13,7 @@ k8s_common_add_packages_names:
   - name: kubeadm
   - name: kubelet
   - name: kubectl
+  - name: python3-pip
 
 k8s_common_remove_packages_names:
   - name:

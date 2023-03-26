@@ -53,13 +53,16 @@ module "kubernetes-cluster" {
   # depends_on = [module.packer-vmis]
 }
 
+resource "time_sleep" "wait-for-pods-to-initialize" {
+  depends_on = [module.kubernetes-cluster]
+
+  create_duration = "1m"
+}
 
 module "metallb" {
-  source = "./metallb"
+  source = "./metallb-configuration"
 
-  depends_on = [
-    module.kubernetes-cluster
-  ]
+  depends_on = [module.kubernetes-cluster, time_sleep.wait-for-pods-to-initialize]
 }
 
 module "kubernetes-dashboard" {

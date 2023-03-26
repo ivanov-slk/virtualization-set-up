@@ -1,0 +1,23 @@
+# https://www.reddit.com/r/ansible/comments/9jfc5x/comment/e6qz4pm/?utm_source=share&utm_medium=web2x&context=3
+- name: Get existing netplan configurations
+  ansible.builtin.find:
+    path: /etc/netplan
+    patterns: "*.yaml"
+  register: to_delete
+
+- name: Remove existing netplan configurations
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: absent
+  loop: "{{ to_delete.files }}"
+
+- name: Template the network configuration to /etc/netplan/netplan-config.yaml
+  ansible.builtin.template:
+    src: netplan-config.yaml
+    dest: /etc/netplan/netplan-config.yaml
+
+# https://stackoverflow.com/a/60079062/10785101
+- name: Apply new netplan configuration
+  command: sudo netplan apply
+  async: 45
+  poll: 0

@@ -4,7 +4,7 @@
   template:
     src: kubeadm-config.yaml
     dest: /home/{{ k8s_master_admin_user }}/kubeadm-config.yaml
-    
+
 #https://docs.projectcalico.org/v3.6/getting-started/kubernetes/
 #kubeadm init --config /home/vagrant/kubeadm-config.yaml
 # --cri-socket /run/containerd/containerd.sock
@@ -31,7 +31,7 @@
 
 - name: Download latest Calico
   ansible.builtin.get_url:
-    url: "https://docs.projectcalico.org/manifests/calico.yaml"
+    url: "https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/calico.yaml"
     dest: "/home/{{ k8s_master_admin_user }}/calico.yaml"
   register: download_calico
   retries: 10
@@ -63,3 +63,21 @@
     src: /home/{{ k8s_master_admin_user }}/.kube/config
     dest: ~/.kube/
     flat: yes
+
+# https://github.com/projectcalico/calico/issues/6963#issuecomment-1307930491
+- name: Add Felix health host for Calico
+  kubernetes.core.k8s:
+    kubeconfig: /home/vagrant/.kube/config
+    state: patched
+    kind: DaemonSet
+    name: calico-node
+    namespace: kube-system
+    definition:
+      spec:
+        template:
+          spec:
+            containers:
+              - env:
+                  - name: FELIX_HEALTHHOST
+                    value: "127.0.0.1"
+                name: calico-node
