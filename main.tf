@@ -64,17 +64,17 @@ module "kubernetes-cluster" {
 resource "time_sleep" "wait-for-pods-to-initialize" {
   depends_on = [module.kubernetes-cluster]
 
-  create_duration = "1m"
-}
-
-module "metallb" {
-  source = "./metallb-configuration"
-
-  depends_on = [module.kubernetes-cluster, time_sleep.wait-for-pods-to-initialize]
+  create_duration = "2m"
 }
 
 module "linkerd" {
   source = "./linkerd-configuration"
+
+  depends_on = [module.kubernetes-cluster, time_sleep.wait-for-pods-to-initialize]
+}
+
+module "metallb" {
+  source = "./metallb-configuration"
 
   depends_on = [module.metallb]
 }
@@ -82,7 +82,7 @@ module "linkerd" {
 module "kubernetes-dashboard" {
   source = "./kubernetes-dashboard"
 
-  depends_on = [module.linkerd]
+  depends_on = [module.metallb]
 }
 
 
