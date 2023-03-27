@@ -2,6 +2,14 @@
 
 ---
 
+# v0.10.2
+
+### Maintenance
+
+- Reorder steps, so `linkerd` is provisioned before `metallb`.
+
+---
+
 # v0.10.1
 
 ### Maintenance
