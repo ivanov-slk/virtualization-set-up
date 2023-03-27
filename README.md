@@ -25,6 +25,10 @@ At this point, `vagrant` cannot be used to manage the virtual machines unless th
 
 [MetalLB](https://metallb.universe.tf/) is needed so that an external IP of the kubernetes cluster can be used; otherwise `NodePort`s should be used, which is inconvenient. Installed via Helm.
 
+### Linkerd
+
+Linkerd is used as a service mesh provider. Injections can be done on a namespace level by annotating with `linkerd.io/inject: enabled`.
+
 ### Kubernetes dashboard
 
 The cluster comes with the Kubernetes dashboard installed. It can be accessed via a `LoadBalancer` service through IP or through a `NodePort` on port 30002 and with a token that is fetched using `kubectl -n kubernetes-dashboard create token admin-user`.

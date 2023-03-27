@@ -2,7 +2,6 @@
 
 ### Task list
 
-- Deploy `linkerd` instead of `istio`;
 - Add modules to Terraform;
 - Tests?
 
