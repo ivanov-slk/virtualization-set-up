@@ -76,7 +76,7 @@ module "linkerd" {
 module "metallb" {
   source = "./metallb-configuration"
 
-  depends_on = [module.metallb]
+  depends_on = [module.linkerd]
 }
 
 module "kubernetes-dashboard" {
