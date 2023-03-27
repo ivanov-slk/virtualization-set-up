@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    linkerd.io/inject: enabled
+    meta.helm.sh/release-name: linkerd-viz
+    meta.helm.sh/release-namespace: linkerd
+  labels:
+    component: web
+    linkerd.io/extension: viz
+    namespace: linkerd
+  name: web-lb
+  namespace: linkerd
+spec:
+  ports:
+    - name: http
+      port: 8084
+      protocol: TCP
+      targetPort: 8084
+    - name: admin-http
+      port: 9994
+      protocol: TCP
+      targetPort: 9994
+  selector:
+    component: web
+    linkerd.io/extension: viz
+  type: LoadBalancer
