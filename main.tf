@@ -4,18 +4,26 @@ terraform {
       source  = "bmatcuk/vagrant"
       version = "~> 4.1.0"
     }
+
     kubectl = {
       source  = "gavinbunney/kubectl"
       version = ">= 1.7.0"
     }
+
     helm = {
       source  = "hashicorp/helm"
       version = ">= 2.4.1"
 
     }
+
     external = {
       source  = "hashicorp/external"
-      version = ">=2.2.0"
+      version = ">= 2.2.0"
+    }
+
+    tls = {
+      source  = "hashicorp/tls"
+      version = ">= 4.0.4"
     }
   }
 }
@@ -65,15 +73,17 @@ module "metallb" {
   depends_on = [module.kubernetes-cluster, time_sleep.wait-for-pods-to-initialize]
 }
 
-module "kubernetes-dashboard" {
-  source = "./kubernetes-dashboard"
+module "linkerd" {
+  source = "./linkerd-configuration"
 
   depends_on = [module.metallb]
 }
 
-# module "istio" {
-#   source = "./istio"
+module "kubernetes-dashboard" {
+  source = "./kubernetes-dashboard"
 
-#   depends_on = [module.kubernetes-cluster]
-# }
+  depends_on = [module.linkerd]
+}
+
+
 

@@ -2,6 +2,16 @@
 
 ---
 
+# v0.10.0
+
+### New
+
+- Provision `linkerd` as a service mesh provider.
+- Inject `linkerd` in the Kubernetes Dashboard namespace.
+- Inject `linkerd` in the MetalLB namespace.
+
+---
+
 # v0.9.0
 
 ### New
