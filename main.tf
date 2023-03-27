@@ -15,7 +15,12 @@ terraform {
     }
     external = {
       source  = "hashicorp/external"
-      version = ">=2.2.0"
+      version = ">= 2.2.0"
+    }
+
+    tls = {
+      source  = "hashicorp/tls"
+      version = ">= 4.0.4"
     }
   }
 }
@@ -71,9 +76,9 @@ module "kubernetes-dashboard" {
   depends_on = [module.metallb]
 }
 
-# module "istio" {
-#   source = "./istio"
+module "linkerd" {
+  source = "./linkerd-configuration"
 
-#   depends_on = [module.kubernetes-cluster]
-# }
+  depends_on = [module.kubernetes-cluster]
+}
 
