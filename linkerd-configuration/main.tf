@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = ">= 1.7.0"
+    }
+  }
+}
+
 resource "tls_private_key" "linkerd_ca" {
   algorithm   = "ECDSA"
   ecdsa_curve = "P256"
@@ -29,7 +38,7 @@ resource "tls_cert_request" "linkerd_issuer" {
   }
 }
 
-resource "tls_locally_signed_cert" "issuer" {
+resource "tls_locally_signed_cert" "linkerd_issuer" {
   cert_request_pem      = tls_cert_request.linkerd_issuer.cert_request_pem
   ca_private_key_pem    = tls_private_key.linkerd_ca.private_key_pem
   ca_cert_pem           = tls_self_signed_cert.linkerd_ca.cert_pem
@@ -42,21 +51,27 @@ resource "tls_locally_signed_cert" "issuer" {
   ]
 }
 
-resource "helm_release" "linkerd_cni" {
-  name       = "linkerd-cni"
-  namespace  = "linkerd-helm"
-  repository = "https://helm.linkerd.io/stable"
-  chart      = "linkerd2-cni"
-  #   version          = "2.11.4"
+resource "helm_release" "linkerd_crds" {
+  name             = "linkerd-crds"
+  namespace        = "linkerd"
+  repository       = "https://helm.linkerd.io/stable"
+  chart            = "linkerd-crds"
   create_namespace = true
 }
 
-resource "helm_release" "linkerd" {
-  name       = "linkerd"
-  namespace  = helm_release.linkerd_cni.namespace
-  repository = "https://helm.linkerd.io/stable"
-  chart      = "linkerd2"
-  #   version          = "2.11.4"
+resource "helm_release" "linkerd_cni" {
+  name             = "linkerd-cni"
+  namespace        = helm_release.linkerd_crds.namespace
+  repository       = "https://helm.linkerd.io/stable"
+  chart            = "linkerd2-cni"
+  create_namespace = false
+}
+
+resource "helm_release" "linkerd_control_plane" {
+  name             = "linkerd-control-plane"
+  namespace        = helm_release.linkerd_crds.namespace
+  repository       = "https://helm.linkerd.io/stable"
+  chart            = "linkerd-control-plane"
   create_namespace = false
   set {
     name  = "cniEnabled"
@@ -77,10 +92,15 @@ resource "helm_release" "linkerd" {
 }
 
 resource "helm_release" "linkerd_viz" {
-  name       = "linkerd-viz"
-  namespace  = helm_release.linkerd_cni.namespace
-  repository = "https://helm.linkerd.io/stable"
-  chart      = "linkerd-viz"
-  #   version          = "2.11.4"
+  name             = "linkerd-viz"
+  namespace        = helm_release.linkerd_crds.namespace
+  repository       = "https://helm.linkerd.io/stable"
+  chart            = "linkerd-viz"
   create_namespace = false
+}
+
+resource "kubectl_manifest" "linkerd-web-lb" {
+  yaml_body = file("./linkerd-configuration/linkerd-service-lb.yaml")
+
+  depends_on = [helm_release.linkerd_viz]
 }
