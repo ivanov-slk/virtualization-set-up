@@ -104,3 +104,13 @@ resource "kubectl_manifest" "linkerd-web-lb" {
 
   depends_on = [helm_release.linkerd_viz]
 }
+
+# Needs to be executed only once, and does not need to be managed by Terraform, therefore the local exec.
+# TODO Consider using something less ad hoc. 
+resource "null_resource" "web_deployment_patch" {
+  provisioner "local-exec" {
+    command = "kubectl patch deployment web -n linkerd --patch-file linkerd-configuration/web-deployment-patch.yaml"
+  }
+
+  depends_on = [helm_release.linkerd_viz]
+}
