@@ -2,6 +2,14 @@
 
 ---
 
+# v0.10.1
+
+### Maintenance
+
+- Update readme and notes with information about Linkerd.
+
+---
+
 # v0.10.0
 
 ### New
