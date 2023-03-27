@@ -16,7 +16,7 @@ apiVersion: v1
 kind: Namespace
 metadata:
   labels:
-    # istio-injection: enabled
+    linkerd.io/inject: enabled
     kubernetes.io/metadata.name: kubernetes-dashboard
   name: kubernetes-dashboard
 spec:
