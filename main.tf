@@ -73,15 +73,17 @@ module "metallb" {
   depends_on = [module.kubernetes-cluster, time_sleep.wait-for-pods-to-initialize]
 }
 
-module "kubernetes-dashboard" {
-  source = "./kubernetes-dashboard"
+module "linkerd" {
+  source = "./linkerd-configuration"
 
   depends_on = [module.metallb]
 }
 
-module "linkerd" {
-  source = "./linkerd-configuration"
+module "kubernetes-dashboard" {
+  source = "./kubernetes-dashboard"
 
-  depends_on = [module.kubernetes-cluster]
+  depends_on = [module.linkerd]
 }
+
+
 
