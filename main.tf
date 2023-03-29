@@ -85,5 +85,12 @@ module "kubernetes-dashboard" {
   depends_on = [module.metallb]
 }
 
+module "prometheus-stack" {
+  source = "./prometheus-stack"
+
+  depends_on = [module.metallb]
+}
+
+
 
 
