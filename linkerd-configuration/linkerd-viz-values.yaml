@@ -1,0 +1,7 @@
+global:
+  scrape_interval: 10s
+  scrape_timeout: 10s
+  evaluation_interval: 10s
+prometheusUrl: kube-prometheus-stack-prometheus
+prometheus:
+  enabled: false

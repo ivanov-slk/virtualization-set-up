@@ -97,6 +97,10 @@ resource "helm_release" "linkerd_viz" {
   repository       = "https://helm.linkerd.io/stable"
   chart            = "linkerd-viz"
   create_namespace = false
+
+  values = [
+    "${file("linkerd-viz-values.yaml")}"
+  ]
 }
 
 resource "kubectl_manifest" "linkerd-web-lb" {
