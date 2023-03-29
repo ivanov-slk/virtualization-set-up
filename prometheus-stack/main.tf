@@ -22,5 +22,5 @@ resource "helm_release" "kube_prometheus_stack" {
     "${file("./prometheus-stack/prometheus-values.yaml")}"
   ]
 
-  depends_on = [kubectl_manifest.namespace_prometheus, kubectl_manifest.namespace_monitoring]
+  depends_on = [kubectl_manifest.namespace_prometheus]
 }
