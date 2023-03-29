@@ -99,7 +99,7 @@ resource "helm_release" "linkerd_viz" {
   create_namespace = false
 
   values = [
-    "${file("linkerd-viz-values.yaml")}"
+    "${file("./linkerd-configuration/linkerd-viz-values.yaml")}"
   ]
 }
 
