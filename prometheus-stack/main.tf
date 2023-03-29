@@ -24,3 +24,11 @@ resource "helm_release" "kube_prometheus_stack" {
 
   depends_on = [kubectl_manifest.namespace_prometheus]
 }
+
+resource "kubectl_manifest" "service_lb_grafana" {
+  yaml_body = file("./prometheus-stack/grafana-service-lb.yaml")
+
+  depends_on = [
+    helm_release.kube_prometheus_stack
+  ]
+}
