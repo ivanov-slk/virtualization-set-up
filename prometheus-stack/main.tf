@@ -7,10 +7,6 @@ terraform {
   }
 }
 
-resource "kubectl_manifest" "namespace_monitoring" {
-  yaml_body = file("./prometheus-stack/namespace-monitoring.yaml")
-}
-
 resource "kubectl_manifest" "namespace_prometheus" {
   yaml_body = file("./prometheus-stack/namespace-prometheus.yaml")
 }
@@ -21,6 +17,10 @@ resource "helm_release" "kube_prometheus_stack" {
   repository       = "https://prometheus-community.github.io/helm-charts"
   chart            = "kube-prometheus-stack"
   create_namespace = false
+
+  values = [
+    "${file("./prometheus-stack/prometheus-values.yaml")}"
+  ]
 
   depends_on = [kubectl_manifest.namespace_prometheus, kubectl_manifest.namespace_monitoring]
 }
