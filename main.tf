@@ -67,16 +67,22 @@ resource "time_sleep" "wait-for-pods-to-initialize" {
   create_duration = "2m"
 }
 
+module "prometheus-stack" {
+  source = "./prometheus-stack"
+
+  depends_on = [module.kubernetes-cluster, time_sleep.wait-for-pods-to-initialize]
+}
+
 module "linkerd" {
   source = "./linkerd-configuration"
 
-  depends_on = [module.kubernetes-cluster, time_sleep.wait-for-pods-to-initialize]
+  depends_on = [module.prometheus-stack]
 }
 
 module "metallb" {
   source = "./metallb-configuration"
 
-  # depends_on = [module.linkerd]
+  depends_on = [module.linkerd]
 }
 
 module "kubernetes-dashboard" {
@@ -85,11 +91,7 @@ module "kubernetes-dashboard" {
   depends_on = [module.metallb]
 }
 
-module "prometheus-stack" {
-  source = "./prometheus-stack"
 
-  depends_on = [module.metallb]
-}
 
 
 
