@@ -1,0 +1,8 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: kube-prometheus-stack-prometheus
+spec:
+  additionalScrapeConfigs:
+    name: additional-scrape-configs
+    key: prometheus-additional-job.yaml
