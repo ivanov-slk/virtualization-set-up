@@ -45,7 +45,7 @@ resource "kubectl_manifest" "additional_scrape_configs_secret" {
 # TODO Consider using something less ad hoc. 
 resource "null_resource" "add_custom_linkerd_jobs_patch" {
   provisioner "local-exec" {
-    command = "kubectl patch prometheus kube-prometheus-stack-prometheus -n prometheus --patch-file prometheus-stack/prometheus-additional-scrape-configs-patch.yaml"
+    command = "kubectl patch prometheus kube-prometheus-stack-prometheus -n prometheus --type merge --patch-file prometheus-stack/prometheus-additional-scrape-configs-patch.yaml"
   }
 
   depends_on = [helm_release.kube_prometheus_stack]
