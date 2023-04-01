@@ -46,3 +46,4 @@ Run `terraform init && terraform plan` to get an idea of what will be executed. 
 - check ways for moving the loop outside of the Vagrantfile. Currently it is needed there because machines (apparently) _need_ to be created sequentially, and Terraform doesn't have a good way to sequentialize resources with `count` or `for_each`. Check [this SO answer](https://stackoverflow.com/a/64749410/10785101) for a suggested (and not especially neat) approach.
 - check ways for alternative version specification; the current approach relies too much on the format of `CHANGES.md`.
 - add removing of virtual boxes on destroying the k8s cluster; otherwise `vagrant` uses the old virtualboxes despite `packer` creating new ones.
+- [limit usage](https://developer.hashicorp.com/terraform/language/meta-arguments/depends_on#processing-and-planning-consequences) of `depends_on`, if possible.
