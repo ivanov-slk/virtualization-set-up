@@ -113,14 +113,18 @@ resource "kubectl_manifest" "service-metrics" {
   depends_on = [kubectl_manifest.namespace]
 }
 
-# resource "kubectl_manifest" "istio-gateway" {
-#   yaml_body = file("./kubernetes-dashboard/manifests/istio-gateway.yaml")
+# TODO Refactor, this depends on resources in other modules and is error-prone.
+# Restart all pods to have linkerd start tracking them.
+resource "null_resource" "restart_prometheus_stack" {
+  provisioner "local-exec" {
+    interpreter = ["/bin/bash", "-c"]
+    command     = <<EOT
+      kubectl rollout restart deployment kube-prometheus-stack-grafana -n prometheus
+      kubectl rollout restart deployment kube-prometheus-stack-kube-state-metrics -n prometheus
+      kubectl rollout restart deployment kube-prometheus-stack-operator -n prometheus
+      kubectl rollout restart ds kube-prometheus-stack-prometheus-node-exporter -n prometheus
+    EOT
+  }
 
-#   depends_on = [kubectl_manifest.namespace, kubectl_manifest.service-dashboard]
-# }
-
-# resource "kubectl_manifest" "istio-virtual-service" {
-#   yaml_body = file("./kubernetes-dashboard/manifests/istio-virtual-service.yaml")
-
-#   depends_on = [kubectl_manifest.namespace, kubectl_manifest.service-dashboard, kubectl_manifest.istio-gateway]
-# }
+  depends_on = [kubectl_manifest.service-metrics]
+}
