@@ -131,4 +131,6 @@ resource "null_resource" "restart_prometheus_stack" {
       kubectl rollout restart ds kube-prometheus-stack-prometheus-node-exporter -n prometheus
     EOT
   }
+
+  depends_on = [null_resource.web_deployment_patch]
 }
