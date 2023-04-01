@@ -48,5 +48,5 @@ resource "null_resource" "add_custom_linkerd_jobs_patch" {
     command = "kubectl patch prometheus kube-prometheus-stack-prometheus -n prometheus --type merge --patch-file prometheus-stack/prometheus-additional-scrape-configs-patch.yaml"
   }
 
-  depends_on = [helm_release.namespace_prometheus]
+  depends_on = [helm_release.kube_prometheus_stack]
 }
