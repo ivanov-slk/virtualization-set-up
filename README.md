@@ -29,6 +29,10 @@ At this point, `vagrant` cannot be used to manage the virtual machines unless th
 
 Linkerd is used as a service mesh provider. Injections can be done on a namespace level by annotating with `linkerd.io/inject: enabled`.
 
+### Prometheus and Grafana
+
+Prometheus and Grafana are provisioned to ensure a full picture of the cluster is quickly available. Prometheus is configured to attend to Linkerd's needs, so that Linkerd's Prometheus can be safely disabled.
+
 ### Kubernetes dashboard
 
 The cluster comes with the Kubernetes dashboard installed. It can be accessed via a `LoadBalancer` service through IP or through a `NodePort` on port 30002 and with a token that is fetched using `kubectl -n kubernetes-dashboard create token admin-user`.
