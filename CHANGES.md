@@ -2,6 +2,14 @@
 
 ---
 
+# v0.11.1
+
+### Maintenance
+
+- Update readme with latest changes.
+
+---
+
 # v0.11.0
 
 ### New
