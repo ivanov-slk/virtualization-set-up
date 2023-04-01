@@ -1,4 +1,5 @@
 # TODO Automate the below?
+# https://blog.container-solutions.com/prometheus-operator-beginners-guide
 # Create the secret with the below configuration with this command:
 # kubectl create secret generic additional-scrape-configs --from-file=./prometheus-stack/prometheus-additional-scrape-configs-source.yaml --dry-run=client -oyaml > ./prometheus-stack/prometheus-additional-scrape-configs-secret.yaml
 

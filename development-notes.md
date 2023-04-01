@@ -100,3 +100,7 @@ tcpdump: listening on enp0s8, link-type EN10MB (Ethernet), snapshot length 26214
   - It seems more like a patch instead of a solution though.
 - It seems there are various ways to configure Felix, as per their [documentation](https://docs.tigera.io/calico/3.25/reference/felix/configuration). However, automating the addition of `FELIX_HEALTHHOST` seems clumsy with them. The easiest approach would be to use `kubectl patch` with a patch file, or even easier with `kubectl set env daemonset/calico-node FELIX_HEALTHHOST="127.0.0.1"`.
   - Finally (2023-03-19), the patch was implemented in Ansible and this seems to resolve the issue.
+
+### "Bring your own Prometheus"
+
+- [This link](https://blog.container-solutions.com/prometheus-operator-beginners-guide) helped the most. It turned out that the best way was to just copy the scrape configs Linkerd's Prometheus came with to a secret and have the "external" Prometheus just include it.
