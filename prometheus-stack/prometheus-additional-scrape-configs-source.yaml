@@ -1,6 +1,36 @@
 # TODO Automate the below?
 # Create the secret with the below configuration with this command:
-# kubectl create secret generic additional-scrape-configs --from-file=./prometheus-stack/prometheus-additional-jobs.yaml --dry-run=client -oyaml > additional-scrape-configs.yaml
+# kubectl create secret generic additional-scrape-configs --from-file=./prometheus-stack/prometheus-additional-scrape-configs-source.yaml --dry-run=client -oyaml > ./prometheus-stack/prometheus-additional-scrape-configs-secret.yaml
+
+- job_name: "prometheus"
+  static_configs:
+    - targets: ["localhost:9090"]
+
+  #  Required for: https://grafana.com/grafana/dashboards/315
+- job_name: "kubernetes-nodes-cadvisor"
+  scheme: https
+  tls_config:
+    ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    insecure_skip_verify: true
+  bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+  kubernetes_sd_configs:
+    - role: node
+  relabel_configs:
+    - action: labelmap
+      regex: __meta_kubernetes_node_label_(.+)
+    - target_label: __address__
+      replacement: kubernetes.default.svc:443
+    - source_labels: [__meta_kubernetes_node_name]
+      regex: (.+)
+      target_label: __metrics_path__
+      replacement: /api/v1/nodes/$1/proxy/metrics/cadvisor
+  metric_relabel_configs:
+    - source_labels: [__name__]
+      regex: "(container|machine)_(cpu|memory|network|fs)_(.+)"
+      action: keep
+    - source_labels: [__name__]
+      regex: "container_memory_failures_total" # unneeded large metric
+      action: drop
 
 - job_name: "linkerd-controller"
   kubernetes_sd_configs:
@@ -23,7 +53,7 @@
     - role: pod
   relabel_configs:
     - source_labels:
-        - __meta_kubernetes_pod_label_linkerd_io_control_plane_component
+        - __meta_kubernetes_pod_label_component
         - __meta_kubernetes_pod_container_port_name
       action: keep
       regex: linkerd-service-mirror;admin-http$
@@ -40,7 +70,7 @@
         - __meta_kubernetes_pod_container_port_name
         - __meta_kubernetes_pod_label_linkerd_io_control_plane_ns
       action: keep
-      regex: ^{{default .Values.proxyContainerName "linkerd-proxy" .Values.proxyContainerName}};linkerd-admin;{{.Values.linkerdNamespace}}$
+      regex: ^linkerd-proxy;linkerd-admin;linkerd$
     - source_labels: [__meta_kubernetes_namespace]
       action: replace
       target_label: namespace
