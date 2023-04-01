@@ -50,3 +50,17 @@ resource "null_resource" "add_custom_linkerd_jobs_patch" {
 
   depends_on = [helm_release.kube_prometheus_stack]
 }
+
+# Restart all pods to have linkerd start tracking them
+resource "null_resource" "restart_prometheus_stack" {
+  provisioner "local-exec" {
+    command = <<EOT
+      "kubectl rollout restart deployment kube-prometheus-stack-grafana -n prometheus"
+      "kubectl rollout restart deployment kube-prometheus-stack-kube-state-metrics -n prometheus"
+      "kubectl rollout restart deployment kube-prometheus-stack-operator -n prometheus"
+      "kubectl rollout restart ds kube-prometheus-stack-prometheus-node-exporter -n prometheus"
+    EOT
+  }
+
+  depends_on = [helm_release.kube_prometheus_stack]
+}
