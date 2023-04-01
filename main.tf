@@ -13,7 +13,6 @@ terraform {
     helm = {
       source  = "hashicorp/helm"
       version = ">= 2.4.1"
-
     }
 
     external = {
@@ -91,8 +90,8 @@ module "kubernetes-dashboard" {
   depends_on = [module.metallb]
 }
 
+module "post-provisioning" {
+  source = "./post-provisioning"
 
-
-
-
-
+  depends_on = [module.kubernetes-dashboard, module.metallb, module.linkerd, module.prometheus-stack]
+}
