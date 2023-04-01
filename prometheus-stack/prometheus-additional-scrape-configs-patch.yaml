@@ -5,4 +5,4 @@ metadata:
 spec:
   additionalScrapeConfigs:
     name: additional-scrape-configs
-    key: prometheus-additional-job.yaml
+    key: prometheus-additional-jobs.yaml
