@@ -97,6 +97,10 @@ resource "helm_release" "linkerd_viz" {
   repository       = "https://helm.linkerd.io/stable"
   chart            = "linkerd-viz"
   create_namespace = false
+
+  values = [
+    "${file("./linkerd-configuration/linkerd-viz-values.yaml")}"
+  ]
 }
 
 resource "kubectl_manifest" "linkerd-web-lb" {
@@ -114,3 +118,4 @@ resource "null_resource" "web_deployment_patch" {
 
   depends_on = [helm_release.linkerd_viz]
 }
+

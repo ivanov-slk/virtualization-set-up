@@ -2,6 +2,19 @@
 
 ---
 
+# v0.11.0
+
+### New
+
+- Add Prometheus and Grafana;
+- Integrate with Linkerd.
+
+### Maintenance
+
+- Tag check now sorts tags correctly.
+
+---
+
 # v0.10.2
 
 ### Maintenance
