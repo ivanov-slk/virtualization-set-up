@@ -2,6 +2,20 @@
 
 ---
 
+# v0.12.0
+
+### New
+
+- Add Prometheus configuration for monitoring Strimzi Kafka clusters;
+- Add Grafana dashboards for monitoring Strimzi Kafka clusters.
+
+### Maintenance
+
+- Update the Readme with details about Prometheus and Grafana;
+- Move the post-provisioning step in a stand-alone script;
+
+---
+
 # v0.11.0
 
 ### New
