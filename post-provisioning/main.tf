@@ -6,8 +6,7 @@ resource "time_sleep" "post_provisioning_grace_period" {
 # Restart all pods to have linkerd start tracking them.
 resource "null_resource" "restart_prometheus_stack" {
   provisioner "local-exec" {
-    interpreter = ["/bin/bash", "-c"]
-    command     = "./post-provisioning/restart-kubernetes-resources.sh"
+    command = "bash ./post-provisioning/restart-kubernetes-resources.sh"
   }
 
   depends_on = [time_sleep.post_provisioning_grace_period]
