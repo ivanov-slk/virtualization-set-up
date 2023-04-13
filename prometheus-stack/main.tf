@@ -84,6 +84,14 @@ resource "null_resource" "add_custom_jobs_patch" {
     command = "kubectl patch prometheus kube-prometheus-stack-prometheus -n prometheus --type merge --patch-file prometheus-stack/prometheus-additional-scrape-configs-patch.yaml"
   }
 
-  depends_on = [helm_release.kube_prometheus_stack]
+  depends_on = [
+    helm_release.kube_prometheus_stack,
+    kubectl_manifest.pod_monitor_strimzi_cluster_operator,
+    kubectl_manifest.pod_monitor_strimzi_kafka_bridge,
+    kubectl_manifest.pod_monitor_strimzi_kafka_entity_operator,
+    kubectl_manifest.pod_monitor_strimzi_kafka_resources,
+    kubectl_manifest.prometheus_rules_strimzi,
+    kubectl_manifest.service_lb_grafana
+  ]
 }
 
