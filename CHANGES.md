@@ -2,6 +2,14 @@
 
 ---
 
+# v0.12.1
+
+### Bugfixes
+
+- Skip first line of `kubectl get ...` when restarting resources.
+
+---
+
 # v0.12.0
 
 ### New

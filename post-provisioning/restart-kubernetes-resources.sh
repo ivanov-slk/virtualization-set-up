@@ -5,7 +5,7 @@ declare -a namespaces=("prometheus")
 
 for namespace in "${namespaces[@]}"; do
 for resource in "${resources[@]}"; do
-    namespaced_resources=`kubectl get ${resource} -n $namespace | tail -n1000 | cut -d ' ' -f 1`
+    namespaced_resources=`kubectl get ${resource} -n $namespace | tail -n +2 | cut -d ' ' -f 1`
     for namespaced_resource in $namespaced_resources; do
     kubectl rollout restart $resource $namespaced_resource -n $namespace
     sleep 3
