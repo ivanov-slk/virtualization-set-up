@@ -11,23 +11,19 @@ resource "kubectl_manifest" "namespace_argocd" {
   yaml_body = file("./argocd/namespace-argocd.yaml")
 }
 
-data "http" "argocd_yaml_raw" {
-  url = "https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/install.yaml"
-}
+resource "helm_release" "argocd" {
+  name             = "argocd"
+  namespace        = "argocd-system"
+  repository       = "https://argoproj.github.io/argo-helm"
+  chart            = "argo-cd"
+  create_namespace = false
 
-data "kubectl_file_documents" "argocd_install_manifests" {
-  content = data.http.argocd_yaml_raw.response_body
-}
-
-resource "kubectl_manifest" "argocd_install_manifests" {
-  for_each  = data.kubectl_file_documents.argocd_install_manifests.manifests
-  yaml_body = each.value
 }
 
 resource "kubectl_manifest" "argocd_lb" {
   yaml_body = file("./argocd/argocd-service-lb.yaml")
 
-  depends_on = [kubectl_manifest.argocd_install_manifests]
+  depends_on = [helm_release.argocd]
 }
 
 
