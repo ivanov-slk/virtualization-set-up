@@ -4,7 +4,7 @@ metadata:
   name: argocd-applicationset-controller-metrics
   namespace: prometheus
   labels:
-    release: prometheus-operator
+    release: kube-prometheus-stack
 spec:
   selector:
     matchLabels:
