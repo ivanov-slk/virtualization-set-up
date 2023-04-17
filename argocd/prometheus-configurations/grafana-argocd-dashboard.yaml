@@ -3996,7 +3996,7 @@ data:
       "uid": "LCAgc9rWz",
       "version": 1
     }
-    kind: ConfigMap
+kind: ConfigMap
 metadata:
   labels:
     app: kube-prometheus-stack-grafana
