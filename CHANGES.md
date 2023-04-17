@@ -2,6 +2,14 @@
 
 ---
 
+# v0.13.0
+
+### New
+
+- Add ArgoCD to available services.
+
+---
+
 # v0.12.1
 
 ### Bugfixes
