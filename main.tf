@@ -90,8 +90,8 @@ module "kubernetes-dashboard" {
   depends_on = [module.metallb]
 }
 
-module "argo-cd" {
-  source = "./argo-cd"
+module "argocd" {
+  source = "./argocd"
 
   depends_on = [module.metallb]
 }
@@ -99,5 +99,5 @@ module "argo-cd" {
 module "post-provisioning" {
   source = "./post-provisioning"
 
-  depends_on = [module.argo-cd, module.kubernetes-dashboard, module.metallb, module.linkerd, module.prometheus-stack]
+  depends_on = [module.argocd, module.kubernetes-dashboard, module.metallb, module.linkerd, module.prometheus-stack]
 }

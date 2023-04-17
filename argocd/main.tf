@@ -12,7 +12,7 @@ resource "kubectl_manifest" "namespace_argocd" {
 }
 
 data "http" "argocd_yaml_raw" {
-  url = "https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml"
+  url = "https://raw.githubusercontent.com/argoproj/argocd/stable/manifests/install.yaml"
 }
 
 data "kubectl_file_documents" "argocd_install_manifests" {
