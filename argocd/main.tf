@@ -18,6 +18,22 @@ resource "helm_release" "argocd" {
   chart            = "argo-cd"
   create_namespace = false
 
+  depends_on = [kubectl_manifest.namespace_argocd]
+}
+
+resource "kubectl_manifest" "grafana_argocd_dashboard" {
+  yaml_body = file("./argocd/prometheus-configurations/grafana-argocd-dashboard.yaml")
+}
+
+data "kubectl_file_documents" "argocd_service_monitors" {
+  content = "./argocd/prometheus-configurations/service-monitors.yaml"
+}
+
+resource "kubectl_manifest" "argocd_service_monitors" {
+  count     = length(data.kubectl_file_documents.argocd_service_monitors.documents)
+  yaml_body = element(data.kubectl_file_documents.argocd_service_monitors.documents, count.index)
+
+  depends_on = [kubectl_manifest.namespace_argocd]
 }
 
 resource "kubectl_manifest" "argocd_lb" {
