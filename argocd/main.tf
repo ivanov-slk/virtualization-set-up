@@ -16,7 +16,7 @@ data "http" "argocd_yaml_raw" {
 }
 
 data "kubectl_file_documents" "argocd_install_manifests" {
-  content = data.http.argocd_yaml_raw
+  content = data.http.argocd_yaml_raw.body
 }
 
 resource "kubectl_manifest" "argocd_install_manifests" {
