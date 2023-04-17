@@ -25,15 +25,13 @@ resource "kubectl_manifest" "grafana_argocd_dashboard" {
   yaml_body = file("./argocd/prometheus-configurations/grafana-argocd-dashboard.yaml")
 }
 
-data "kubectl_file_documents" "argocd_service_monitors" {
-  content = "./argocd/prometheus-configurations/service-monitors.yaml"
+data "kubectl_filename_list" "prometheus_argocd_service_monitors" {
+  pattern = "./argocd/prometheus-configurations/service-monitor-*.yaml"
 }
 
-resource "kubectl_manifest" "argocd_service_monitors" {
-  for_each  = data.kubectl_file_documents.argocd_service_monitors.manifests
-  yaml_body = each.value
-
-  depends_on = [kubectl_manifest.namespace_argocd]
+resource "kubectl_manifest" "prometheus_argocd_service_monitors" {
+  count     = length(data.kubectl_filename_list.prometheus_argocd_service_monitors.matches)
+  yaml_body = file(element(data.kubectl_filename_list.prometheus_argocd_service_monitors.matches, count.index))
 }
 
 resource "kubectl_manifest" "argocd_lb" {
