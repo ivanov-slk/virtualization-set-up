@@ -11,7 +11,6 @@ spec:
       app.kubernetes.io/name: argocd-metrics
   endpoints:
     - port: metrics
-
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
@@ -26,7 +25,6 @@ spec:
       app.kubernetes.io/name: argocd-server-metrics
   endpoints:
     - port: metrics
-
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
@@ -41,7 +39,6 @@ spec:
       app.kubernetes.io/name: argocd-repo-server
   endpoints:
     - port: metrics
-
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor

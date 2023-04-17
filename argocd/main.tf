@@ -30,8 +30,8 @@ data "kubectl_file_documents" "argocd_service_monitors" {
 }
 
 resource "kubectl_manifest" "argocd_service_monitors" {
-  count     = length(data.kubectl_file_documents.argocd_service_monitors.documents)
-  yaml_body = element(data.kubectl_file_documents.argocd_service_monitors.documents, count.index)
+  for_each  = data.kubectl_file_documents.argocd_service_monitors.manifests
+  yaml_body = each.value
 
   depends_on = [kubectl_manifest.namespace_argocd]
 }
