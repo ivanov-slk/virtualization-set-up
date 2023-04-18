@@ -6,7 +6,9 @@
 
 ### New
 
-- Add ArgoCD to available services.
+- Add ArgoCD to available services;
+- Enable Prometheus metrics for ArgoCD;
+- Add Grafana dashboard for ArgoCD.
 
 ---
 
