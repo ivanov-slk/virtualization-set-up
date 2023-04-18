@@ -18,6 +18,10 @@ resource "helm_release" "argocd" {
   chart            = "argo-cd"
   create_namespace = false
 
+  values = [
+    "${file("./argocd/argocd-values.yaml")}"
+  ]
+
   depends_on = [kubectl_manifest.namespace_argocd]
 }
 
@@ -26,11 +30,11 @@ resource "kubectl_manifest" "grafana_argocd_dashboard" {
 }
 
 resource "kubectl_manifest" "applicationset_controller_metrics" {
-  yaml_body = file("./argocd/prometheus-configurations/service-monitor-argocd-applicationset-controller-metrics.yaml")
+  yaml_body = file("./argocd/prometheus-configurations/service-monitor-argocd-metrics.yaml")
 }
 
 resource "kubectl_manifest" "metrics" {
-  yaml_body = file("./argocd/prometheus-configurations/service-monitor-argocd-metrics.yaml")
+  yaml_body = file("./argocd/prometheus-configurations/service-monitor-argocd-redis-metrics.yaml")
 }
 
 resource "kubectl_manifest" "repo_server_metrics" {
