@@ -2,3 +2,15 @@ global:
   scrape_interval: 10s
   scrape_timeout: 10s
   evaluation_interval: 10s
+prometheus:
+  prometheusSpec:
+    additionalScrapeConfigsSecret:
+      enabled: true
+      name: additional-scrape-configs
+      key: prometheus-additional-scrape-configs.yaml
+
+    # Related to the below configurations might be deprecated in a future version.
+    # https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#prometheusspec
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false

@@ -2,6 +2,16 @@
 
 ---
 
+# v0.13.0
+
+### New
+
+- Add ArgoCD to available services;
+- Enable Prometheus metrics for ArgoCD;
+- Add Grafana dashboard for ArgoCD.
+
+---
+
 # v0.12.1
 
 ### Bugfixes

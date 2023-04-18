@@ -51,9 +51,13 @@ resource "tls_locally_signed_cert" "linkerd_issuer" {
   ]
 }
 
+resource "kubectl_manifest" "namespace_linkerd" {
+  yaml_body = file("./linkerd-configuration/namespace-linkerd.yaml")
+}
+
 resource "helm_release" "linkerd_crds" {
   name             = "linkerd-crds"
-  namespace        = "linkerd"
+  namespace        = kubectl_manifest.namespace_linkerd.name
   repository       = "https://helm.linkerd.io/stable"
   chart            = "linkerd-crds"
   create_namespace = true
@@ -61,15 +65,17 @@ resource "helm_release" "linkerd_crds" {
 
 resource "helm_release" "linkerd_cni" {
   name             = "linkerd-cni"
-  namespace        = helm_release.linkerd_crds.namespace
+  namespace        = kubectl_manifest.namespace_linkerd.name
   repository       = "https://helm.linkerd.io/stable"
   chart            = "linkerd2-cni"
   create_namespace = false
+
+  depends_on = [helm_release.linkerd_crds]
 }
 
 resource "helm_release" "linkerd_control_plane" {
   name             = "linkerd-control-plane"
-  namespace        = helm_release.linkerd_crds.namespace
+  namespace        = kubectl_manifest.namespace_linkerd.name
   repository       = "https://helm.linkerd.io/stable"
   chart            = "linkerd-control-plane"
   create_namespace = false
@@ -89,11 +95,13 @@ resource "helm_release" "linkerd_control_plane" {
     name  = "identity.issuer.tls.keyPEM"
     value = tls_private_key.linkerd_issuer.private_key_pem
   }
+
+  depends_on = [helm_release.linkerd_cni]
 }
 
 resource "helm_release" "linkerd_viz" {
   name             = "linkerd-viz"
-  namespace        = helm_release.linkerd_crds.namespace
+  namespace        = kubectl_manifest.namespace_linkerd.name
   repository       = "https://helm.linkerd.io/stable"
   chart            = "linkerd-viz"
   create_namespace = false
