@@ -7,3 +7,9 @@ prometheus:
     additionalScrapeConfigs:
       name: additional-scrape-configs
       key: prometheus-additional-scrape-configs.yaml
+
+    # Related to the below configurations might be deprecated in a future version.
+    # https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#prometheusspec
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
