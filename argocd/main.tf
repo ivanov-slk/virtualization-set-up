@@ -29,21 +29,21 @@ resource "kubectl_manifest" "grafana_argocd_dashboard" {
   yaml_body = file("./argocd/prometheus-configurations/grafana-argocd-dashboard.yaml")
 }
 
-resource "kubectl_manifest" "applicationset_controller_metrics" {
-  yaml_body = file("./argocd/prometheus-configurations/service-monitor-argocd-metrics.yaml")
-}
+# resource "kubectl_manifest" "applicationset_controller_metrics" {
+#   yaml_body = file("./argocd/prometheus-configurations/service-monitor-argocd-metrics.yaml")
+# }
 
-resource "kubectl_manifest" "metrics" {
-  yaml_body = file("./argocd/prometheus-configurations/service-monitor-argocd-redis-metrics.yaml")
-}
+# resource "kubectl_manifest" "metrics" {
+#   yaml_body = file("./argocd/prometheus-configurations/service-monitor-argocd-redis-metrics.yaml")
+# }
 
-resource "kubectl_manifest" "repo_server_metrics" {
-  yaml_body = file("./argocd/prometheus-configurations/service-monitor-argocd-repo-server-metrics.yaml")
-}
+# resource "kubectl_manifest" "repo_server_metrics" {
+#   yaml_body = file("./argocd/prometheus-configurations/service-monitor-argocd-repo-server-metrics.yaml")
+# }
 
-resource "kubectl_manifest" "server_metrics" {
-  yaml_body = file("./argocd/prometheus-configurations/service-monitor-server-metrics.yaml")
-}
+# resource "kubectl_manifest" "server_metrics" {
+#   yaml_body = file("./argocd/prometheus-configurations/service-monitor-argocd-server-metrics.yaml")
+# }
 
 resource "kubectl_manifest" "argocd_lb" {
   yaml_body = file("./argocd/argocd-service-lb.yaml")
