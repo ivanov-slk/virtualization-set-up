@@ -29,6 +29,7 @@ resource "kubectl_manifest" "grafana_argocd_dashboard" {
   yaml_body = file("./argocd/prometheus-configurations/grafana-argocd-dashboard.yaml")
 }
 
+# TODO removethese if the Grafana dashboard is stable enough, in which case the default ones (in values.yaml) are ok.
 # resource "kubectl_manifest" "applicationset_controller_metrics" {
 #   yaml_body = file("./argocd/prometheus-configurations/service-monitor-argocd-metrics.yaml")
 # }
