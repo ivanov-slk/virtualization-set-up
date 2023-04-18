@@ -81,7 +81,7 @@ resource "helm_release" "linkerd_control_plane" {
   create_namespace = false
   set {
     name  = "cniEnabled"
-    value = "true"
+    value = "false"
   }
   set {
     name  = "identityTrustAnchorsPEM"
@@ -109,6 +109,8 @@ resource "helm_release" "linkerd_viz" {
   values = [
     "${file("./linkerd-configuration/linkerd-viz-values.yaml")}"
   ]
+
+  depends_on = [helm_release.linkerd_control_plane]
 }
 
 resource "kubectl_manifest" "linkerd-web-lb" {
