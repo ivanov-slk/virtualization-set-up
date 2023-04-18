@@ -2,6 +2,14 @@
 
 ---
 
+# v0.13.1
+
+### Maintenance
+
+- Turn off Linkerd CNI since it's not needed and produces errors during provisioning.
+
+---
+
 # v0.13.0
 
 ### New
