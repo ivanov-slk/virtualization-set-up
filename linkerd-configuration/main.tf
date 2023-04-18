@@ -63,15 +63,16 @@ resource "helm_release" "linkerd_crds" {
   create_namespace = true
 }
 
-resource "helm_release" "linkerd_cni" {
-  name             = "linkerd-cni"
-  namespace        = kubectl_manifest.namespace_linkerd.name
-  repository       = "https://helm.linkerd.io/stable"
-  chart            = "linkerd2-cni"
-  create_namespace = false
+# TODO Deprecated. Remove in the future.
+# resource "helm_release" "linkerd_cni" {
+#   name             = "linkerd-cni"
+#   namespace        = kubectl_manifest.namespace_linkerd.name
+#   repository       = "https://helm.linkerd.io/stable"
+#   chart            = "linkerd2-cni"
+#   create_namespace = false
 
-  depends_on = [helm_release.linkerd_crds]
-}
+#   depends_on = [helm_release.linkerd_crds]
+# }
 
 resource "helm_release" "linkerd_control_plane" {
   name             = "linkerd-control-plane"
