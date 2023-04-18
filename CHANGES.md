@@ -2,6 +2,14 @@
 
 ---
 
+# v0.13.2
+
+### Maintenance
+
+- Add reminder comment to remove configuration related to Linkerd CNI.
+
+---
+
 # v0.13.1
 
 ### Maintenance
