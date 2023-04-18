@@ -95,10 +95,6 @@ resource "helm_release" "linkerd_control_plane" {
     name  = "identity.issuer.tls.keyPEM"
     value = tls_private_key.linkerd_issuer.private_key_pem
   }
-  # set {
-  #   name  = "proxyInit.iptablesMode"
-  #   value = "nft"
-  # }
 
   depends_on = [helm_release.linkerd_cni]
 }
