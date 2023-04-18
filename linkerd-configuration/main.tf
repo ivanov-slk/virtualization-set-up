@@ -52,7 +52,7 @@ resource "tls_locally_signed_cert" "linkerd_issuer" {
 }
 
 resource "kubectl_manifest" "namespace_linkerd" {
-  yaml_body = file("./linkerd/namespace-linkerd.yaml")
+  yaml_body = file("./linkerd-configuration/namespace-linkerd.yaml")
 }
 
 resource "helm_release" "linkerd_crds" {
