@@ -104,3 +104,7 @@ tcpdump: listening on enp0s8, link-type EN10MB (Ethernet), snapshot length 26214
 ### "Bring your own Prometheus"
 
 - [This link](https://blog.container-solutions.com/prometheus-operator-beginners-guide) helped the most. It turned out that the best way was to just copy the scrape configs Linkerd's Prometheus came with to a secret and have the "external" Prometheus just include it.
+
+### Virtual machines not using all disk space
+
+- It turned out this was intentional configuration of LVM. Check [the documentation](https://github.com/canonical/subiquity/blob/649dbcc5d63d3d2fc12670317b60faac631bea0f/documentation/autoinstall-reference.md#sizing-policy) of `subiquity`. There are two solutions - either make the configuration explicit using the `sizing-policy` key, or provision more disk space adhering to Subiquity's rules.
