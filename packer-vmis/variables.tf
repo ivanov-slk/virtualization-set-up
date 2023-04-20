@@ -8,6 +8,11 @@ variable "virtual_machine_image" {
   nullable = false
 }
 
+variable "virtual_machine_sha" {
+  type     = string
+  nullable = false
+}
+
 variable "private_key_path" {
   type     = string
   nullable = false

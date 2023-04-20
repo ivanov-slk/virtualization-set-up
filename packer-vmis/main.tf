@@ -4,6 +4,7 @@ resource "null_resource" "packer-build" {
   triggers = {
     distribution_name            = var.distribution_name
     virtual_machine_image        = var.virtual_machine_image
+    virtual_machine_image_sha    = var.virtual_machine_image_sha
     virtual_machine_image_exists = fileexists(".packer-vmis/${var.virtual_machine_image}.box")
     # always_run            = "${timestamp()}"
   }
@@ -18,6 +19,7 @@ NC='\033[0m' # No Color
 cd packer-vmis
 packer build -var "distribution_name=${self.triggers.distribution_name}" \
              -var "virtual_machine_image=${self.triggers.virtual_machine_image}" \
+             -var "virtual_machine_image_sha=${self.triggers.virtual_machine_image_sha}" \
              ${self.triggers.virtual_machine_image}.pkr.hcl
 
 if [ $? -eq 0 ]; then
