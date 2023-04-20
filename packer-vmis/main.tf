@@ -16,7 +16,7 @@ BLUE='\033[0;34m' # Blue Text
 NC='\033[0m' # No Color
 
 cd packer-vmis
-packer build ${self.triggers.virtual_machine_image}.pkr.hcl -var "distribution_name=${self.triggers.distribution_name}"
+packer build -var "distribution_name=${self.triggers.distribution_name} ${self.triggers.virtual_machine_image}.pkr.hcl "
 
 if [ $? -eq 0 ]; then
   printf "\n $GREEN Packer Succeeded $NC \n"
