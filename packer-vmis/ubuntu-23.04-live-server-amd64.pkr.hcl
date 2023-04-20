@@ -48,10 +48,10 @@ source "virtualbox-iso" "ubuntu-server-vmi" {
   iso_url                 = "https://releases.ubuntu.com/${var.distribution_name}/${var.virtual_machine_image}.iso"
   shutdown_command        = "sudo -S shutdown -P now"
   ssh_agent_auth          = true
-  ssh_handshake_attempts  = "200"
+  ssh_handshake_attempts  = "2000"
   ssh_private_key_file    = var.private_key_path
   ssh_username            = "vagrant"
-  ssh_wait_timeout        = "10000s"
+  ssh_wait_timeout        = "20000s"
   virtualbox_version_file = ".vbox_version"
   vm_name                 = "packer-${var.virtual_machine_image}"
   hard_drive_interface    = "sata"
