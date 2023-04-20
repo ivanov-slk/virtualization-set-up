@@ -18,7 +18,7 @@ variable "distribution_name" {
   default = "22.10"
 }
 
-variable "os_version_name" {
+variable "virtual_machine_image" {
   type    = string
   default = "ubuntu-22.10-live-server-amd64"
 }
@@ -45,7 +45,7 @@ source "virtualbox-iso" "ubuntu-server-vmi" {
   guest_os_type           = "Ubuntu_64"
   headless                = false
   iso_checksum            = var.iso_checksum
-  iso_url                 = "https://releases.ubuntu.com/${var.distribution_name}/${var.os_version_name}.iso"
+  iso_url                 = "https://releases.ubuntu.com/${var.distribution_name}/${var.virtual_machine_image}.iso"
   shutdown_command        = "sudo -S shutdown -P now"
   ssh_agent_auth          = true
   ssh_handshake_attempts  = "200"
@@ -53,7 +53,7 @@ source "virtualbox-iso" "ubuntu-server-vmi" {
   ssh_username            = "vagrant"
   ssh_wait_timeout        = "10000s"
   virtualbox_version_file = ".vbox_version"
-  vm_name                 = "packer-${var.os_version_name}"
+  vm_name                 = "packer-${var.virtual_machine_image}"
   hard_drive_interface    = "sata"
 }
 
@@ -70,6 +70,6 @@ build {
 
   post-processor "vagrant" {
     compression_level = "8"
-    output            = "${var.os_version_name}.box"
+    output            = "${var.virtual_machine_image}.box"
   }
 }
