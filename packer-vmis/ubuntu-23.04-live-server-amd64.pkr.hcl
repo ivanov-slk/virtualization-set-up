@@ -44,7 +44,7 @@ source "virtualbox-iso" "ubuntu-server-vmi" {
   guest_additions_path    = "VBoxGuestAdditions_{{ .Version }}.iso"
   guest_os_type           = "Ubuntu_64"
   headless                = false
-  virtual_machine_image_sha            = var.virtual_machine_image_sha
+  iso_checksum            = var.virtual_machine_image_sha
   iso_url                 = "https://releases.ubuntu.com/${var.distribution_name}/${var.virtual_machine_image}.iso"
   shutdown_command        = "sudo -S shutdown -P now"
   ssh_agent_auth          = true
