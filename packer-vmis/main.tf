@@ -11,23 +11,11 @@ resource "null_resource" "packer-build" {
   provisioner "local-exec" {
     working_dir = "."
     command     = <<EOF
-RED='\033[0;31m' # Red Text
-GREEN='\033[0;32m' # Green Text
-BLUE='\033[0;34m' # Blue Text
-NC='\033[0m' # No Color
-
 cd packer-vmis
 packer build -var "distribution_name=${self.triggers.distribution_name}" \
              -var "virtual_machine_image=${self.triggers.virtual_machine_image}" \
              -var "virtual_machine_image_sha=${self.triggers.virtual_machine_image_sha}" \
              ${self.triggers.virtual_machine_image}.pkr.hcl
-
-if [ $? -eq 0 ]; then
-  printf "\n $GREEN Packer Succeeded $NC \n"
-else
-  printf "\n $RED Packer Failed $NC \n" >&2
-  exit 1
-fi
 EOF
   }
 

@@ -23,7 +23,7 @@ variable "virtual_machine_image" {
   default = "ubuntu-22.10-live-server-amd64"
 }
 
-variable "iso_checksum" {
+variable "virtual_machine_image_sha" {
   type    = string
   default = "sha256:874452797430a94ca240c95d8503035aa145bd03ef7d84f9b23b78f3c5099aed"
 }
@@ -44,7 +44,7 @@ source "virtualbox-iso" "ubuntu-server-vmi" {
   guest_additions_path    = "VBoxGuestAdditions_{{ .Version }}.iso"
   guest_os_type           = "Ubuntu_64"
   headless                = false
-  iso_checksum            = var.iso_checksum
+  iso_checksum            = var.virtual_machine_image_sha
   iso_url                 = "https://releases.ubuntu.com/${var.distribution_name}/${var.virtual_machine_image}.iso"
   shutdown_command        = "sudo -S shutdown -P now"
   ssh_agent_auth          = true
