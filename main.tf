@@ -57,7 +57,7 @@ module "kubernetes-cluster" {
   worker_cpus           = var.worker_cpus
   worker_memory         = var.worker_memory
 
-  # depends_on = [module.packer-vmis]
+  depends_on = [module.packer-vmis]
 }
 
 resource "time_sleep" "wait-for-pods-to-initialize" {
