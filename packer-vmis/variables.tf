@@ -8,7 +8,7 @@ variable "virtual_machine_image" {
   nullable = false
 }
 
-variable "virtual_machine_sha" {
+variable "virtual_machine_image_sha" {
   type     = string
   nullable = false
 }
