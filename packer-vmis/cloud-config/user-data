@@ -9,7 +9,6 @@ autoinstall:
   storage:
     layout:
       name: lvm
-      sizing-policy: all
   ssh:
     install-server: yes
   user-data:
