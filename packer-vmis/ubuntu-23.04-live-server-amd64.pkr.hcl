@@ -1,6 +1,6 @@
 variable "disk_size" {
     type    = number
-    default = 32768
+    default = 65536
 }
 
 variable "cpus" {
@@ -15,17 +15,17 @@ variable "memory" {
 
 variable "distribution_name" {
   type    = string
-  default = "focal"
+  default = "23.04"
 }
 
 variable "virtual_machine_image" {
   type    = string
-  default = "ubuntu-20.04.3-live-server-amd64"
+  default = "ubuntu-22.10-live-server-amd64"
 }
 
 variable "virtual_machine_image_sha" {
   type    = string
-  default = "sha256:f8e3086f3cea0fb3fefb29937ab5ed9d19e767079633960ccb50e76153effc98"
+  default = "sha256:c7cda48494a6d7d9665964388a3fc9c824b3bef0c9ea3818a1be982bc80d346b"
 }
 
 variable "private_key_path" {
@@ -48,12 +48,13 @@ source "virtualbox-iso" "ubuntu-server-vmi" {
   iso_url                 = "https://releases.ubuntu.com/${var.distribution_name}/${var.virtual_machine_image}.iso"
   shutdown_command        = "sudo -S shutdown -P now"
   ssh_agent_auth          = true
-  ssh_handshake_attempts  = "200"
+  ssh_handshake_attempts  = "2000"
   ssh_private_key_file    = var.private_key_path
   ssh_username            = "vagrant"
-  ssh_wait_timeout        = "10000s"
+  ssh_wait_timeout        = "20000s"
   virtualbox_version_file = ".vbox_version"
   vm_name                 = "packer-${var.virtual_machine_image}"
+  hard_drive_interface    = "sata"
 }
 
 build {

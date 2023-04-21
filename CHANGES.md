@@ -2,6 +2,19 @@
 
 ---
 
+# v0.14.0
+
+### New
+
+- Add configuration for Ubuntu Server 23.04. Still WIP.
+- Remove Prometheus configuration for Strimzi. This is handled [here](https://github.com/ivanov-slk/kubernetes-kafka-provisioning) instead.
+
+### Maintenance
+
+- Increase node storage.
+
+---
+
 # v0.13.2
 
 ### Maintenance

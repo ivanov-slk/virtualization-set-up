@@ -39,9 +39,11 @@ provider "helm" {
 }
 
 module "packer-vmis" {
-  source                = "./packer-vmis"
-  virtual_machine_image = var.virtual_machine_image
-  private_key_path      = var.private_key_path
+  source                    = "./packer-vmis"
+  distribution_name         = var.distribution_name
+  virtual_machine_image     = var.virtual_machine_image
+  virtual_machine_image_sha = var.virtual_machine_image_sha
+  private_key_path          = var.private_key_path
 }
 
 module "kubernetes-cluster" {
@@ -57,7 +59,7 @@ module "kubernetes-cluster" {
   worker_cpus           = var.worker_cpus
   worker_memory         = var.worker_memory
 
-  # depends_on = [module.packer-vmis]
+  depends_on = [module.packer-vmis]
 }
 
 resource "time_sleep" "wait-for-pods-to-initialize" {

@@ -63,7 +63,7 @@ resource "helm_release" "linkerd_crds" {
   create_namespace = true
 }
 
-# TODO Deprecated. Remove in the future.
+# # TODO Deprecated. Remove in the future.
 # resource "helm_release" "linkerd_cni" {
 #   name             = "linkerd-cni"
 #   namespace        = kubectl_manifest.namespace_linkerd.name
@@ -96,8 +96,6 @@ resource "helm_release" "linkerd_control_plane" {
     name  = "identity.issuer.tls.keyPEM"
     value = tls_private_key.linkerd_issuer.private_key_pem
   }
-
-  depends_on = [helm_release.linkerd_cni]
 }
 
 resource "helm_release" "linkerd_viz" {
