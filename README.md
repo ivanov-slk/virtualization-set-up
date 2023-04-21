@@ -36,7 +36,7 @@ Alternatively, a host like (`kubernetes-dashboard.my-cluster.local`) can be spec
 
 ### Prometheus and Grafana
 
-The cluster includes Prometheus and Grafana, as per the [Prometheus community](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack). Custom configurations are applied so that Prometheus works with Linkerd. There are custom configurations for monitoring [Strimzi](https://github.com/strimzi/strimzi-kafka-operator) Kafka clusters. Strimzi's Grafana dashboards are included and Prometheus is configured to supply metrics for them.
+The cluster includes Prometheus and Grafana, as per the [Prometheus community](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack). Custom configurations are applied so that Prometheus works with Linkerd.
 
 ### ArgoCD
 
