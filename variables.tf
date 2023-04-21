@@ -1,18 +1,3 @@
-# variable "distribution_name" {
-#   type    = string
-#   default = "23.04"
-# }
-
-# variable "virtual_machine_image" {
-#   type    = string
-#   default = "ubuntu-23.04-live-server-amd64"
-# }
-
-# variable "virtual_machine_image_sha" {
-#   type    = string
-#   default = "c7cda48494a6d7d9665964388a3fc9c824b3bef0c9ea3818a1be982bc80d346b"
-# }
-
 variable "distribution_name" {
   type    = string
   default = "22.10"
