@@ -1,16 +1,16 @@
 variable "distribution_name" {
   type    = string
-  default = "22.10"
+  default = "23.04"
 }
 
 variable "virtual_machine_image" {
   type    = string
-  default = "ubuntu-22.10-live-server-amd64"
+  default = "ubuntu-23.04-live-server-amd64"
 }
 
 variable "virtual_machine_image_sha" {
   type    = string
-  default = "874452797430a94ca240c95d8503035aa145bd03ef7d84f9b23b78f3c5099aed"
+  default = "c7cda48494a6d7d9665964388a3fc9c824b3bef0c9ea3818a1be982bc80d346b"
 }
 
 variable "private_key_path" {

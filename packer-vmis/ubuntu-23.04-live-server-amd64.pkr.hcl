@@ -39,8 +39,10 @@ source "virtualbox-iso" "ubuntu-server-vmi" {
   cd_files                = ["./cloud-config/user-data", "./cloud-config/meta-data"]
   cd_label                = "cidata"
   disk_size               = var.disk_size
-  cpus                    = var.cpus
-  memory                  = var.memory
+  # Set memory to almost anything larger than the default; see:
+  # https://www.reddit.com/r/Ubuntu/comments/hbm7ib/attempting_to_install_ubuntu_2004_in_vmware/
+  cpus                    = var.master_cpus
+  memory                  = var.master_memory
   guest_additions_path    = "VBoxGuestAdditions_{{ .Version }}.iso"
   guest_os_type           = "Ubuntu_64"
   headless                = false
