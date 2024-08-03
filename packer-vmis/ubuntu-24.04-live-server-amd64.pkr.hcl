@@ -14,27 +14,27 @@ variable "disk_size" {
 
 variable "cpus" {
   type    = number
-  default = 1
+  default = 2
 }
 
 variable "memory" {
   type    = number
-  default = 1024
+  default = 4096
 }
 
 variable "distribution_name" {
   type    = string
-  default = "23.04"
+  default = "24.04"
 }
 
 variable "virtual_machine_image" {
   type    = string
-  default = "ubuntu-23.04-live-server-amd64"
+  default = "ubuntu-24.04-live-server-amd64"
 }
 
 variable "virtual_machine_image_sha" {
   type    = string
-  default = "sha256:c7cda48494a6d7d9665964388a3fc9c824b3bef0c9ea3818a1be982bc80d346b"
+  default = "sha256:8762f7e74e4d64d72fceb5f70682e6b069932deedb4949c6975d0f0fe0a91be3"
 }
 
 variable "private_key_path" {
@@ -51,8 +51,8 @@ source "virtualbox-iso" "ubuntu-server-vmi" {
   disk_size               = var.disk_size
   # Set memory to almost anything larger than the default; see:
   # https://www.reddit.com/r/Ubuntu/comments/hbm7ib/attempting_to_install_ubuntu_2004_in_vmware/
-  cpus                    = var.master_cpus
-  memory                  = var.master_memory
+  cpus                    = var.cpus
+  memory                  = var.memory
   guest_additions_path    = "VBoxGuestAdditions_{{ .Version }}.iso"
   guest_os_type           = "Ubuntu_64"
   headless                = false

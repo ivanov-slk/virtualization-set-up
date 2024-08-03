@@ -23,5 +23,7 @@ autoinstall:
   packages:
     - openssh-server
     - build-essential
+  package_update: true
+  package_upgrade: true
   late-commands:
     - echo 'vagrant ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/vagrant
