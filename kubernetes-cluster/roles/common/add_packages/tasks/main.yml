@@ -6,7 +6,7 @@
 
 - name: Check if a reboot is needed for Debian and Ubuntu boxes
   register: reboot_required_file
-  stat: path=/var/run/reboot-required get_md5=no
+  stat: path=/var/run/reboot-required get_checksum=false
 
 - name: Reboot the Debian or Ubuntu server
   reboot:
@@ -19,12 +19,14 @@
   when: reboot_required_file.stat.exists
 
 - name: Add new repositories keys
-  apt_key: url='{{item.key}}'
+  apt_key:
+    url: "{{ item.key }}"
+    state: present
   with_items: "{{ linux_add_packages_keys | default([])}}"
   when: linux_add_packages_keys is defined and not (linux_add_packages_keys is none or linux_add_packages_keys | trim == '')
   register: aptnewkeys
-  retries: 10
-  delay: 5
+  retries: 5
+  delay: 3
   until: aptnewkeys is succeeded
 
 - name: Add new repositories to sources
@@ -32,8 +34,8 @@
   with_items: "{{ linux_add_packages_repositories | default([])}}"
   when: linux_add_packages_repositories is defined and not (linux_add_packages_repositories is none or linux_add_packages_repositories | trim == '')
   register: apt_add_repositories
-  retries: 10
-  delay: 5
+  retries: 5
+  delay: 3
   until: apt_add_repositories is succeeded
 
 - name: Force update cache if new keys added
@@ -47,8 +49,8 @@
   with_items: "{{ linux_remove_packages_names | default([])}}"
   when: linux_remove_packages_names is defined and not (linux_remove_packages_names is none or linux_remove_packages_names | trim == '')
   register: apt_remove_packages
-  retries: 10
-  delay: 5
+  retries: 5
+  delay: 3
   until: apt_remove_packages is succeeded
 
 - name: Install packages
@@ -64,4 +66,6 @@
   until: apt_install_packages is succeeded
 
 - name: Install python package on the node
-  ansible.builtin.shell: pip install kubernetes
+  ansible.builtin.pip:
+    name: kubernetes
+    break_system_packages: true
