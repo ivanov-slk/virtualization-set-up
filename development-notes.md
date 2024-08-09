@@ -108,3 +108,9 @@ tcpdump: listening on enp0s8, link-type EN10MB (Ethernet), snapshot length 26214
 ### Virtual machines not using all disk space
 
 - It turned out this was intentional configuration of LVM. Check [the documentation](https://github.com/canonical/subiquity/blob/649dbcc5d63d3d2fc12670317b60faac631bea0f/documentation/autoinstall-reference.md#sizing-policy) of `subiquity`. There are two solutions - either make the configuration explicit using the `sizing-policy` key, or provision more disk space adhering to Subiquity's rules.
+
+### Upgrading to Ubuntu 24.04
+
+- Had to use `break_system_packages` for pip to be able to install `kubernetes` system-wide. Not recommended.
+- Had to use the new Kubernetes repositories; [documentation](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl). **This now results in the need to update the Kubernetes version in the keys URL, when new Kubernetes version is to be installed!!!**
+- `10-kubeadm.conf` has moved to `/usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf`. Previously it was in `/etc/...`, and apparently it is possible to put there overrides.
