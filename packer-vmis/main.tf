@@ -12,10 +12,10 @@ resource "null_resource" "packer-build" {
     working_dir = "."
     command     = <<EOF
 cd packer-vmis
-packer build -var "distribution_name=${self.triggers.distribution_name}" \
-             -var "virtual_machine_image=${self.triggers.virtual_machine_image}" \
-             -var "virtual_machine_image_sha=${self.triggers.virtual_machine_image_sha}" \
-             ${self.triggers.virtual_machine_image}.pkr.hcl
+PACKER_LOG=1 packer build -var "distribution_name=${self.triggers.distribution_name}" \
+              -var "virtual_machine_image=${self.triggers.virtual_machine_image}" \
+              -var "virtual_machine_image_sha=${self.triggers.virtual_machine_image_sha}" \
+              ${self.triggers.virtual_machine_image}.pkr.hcl
 EOF
   }
 

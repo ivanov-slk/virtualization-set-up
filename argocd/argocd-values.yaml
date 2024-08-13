@@ -39,3 +39,15 @@ notifications:
     enabled: true
     serviceMonitor:
       enabled: true
+
+redisSecretInit:
+  enabled: true
+  podAnnotations:
+    linkerd.io/inject: disabled
+  resources:
+    limits:
+      cpu: 200m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 64Mi

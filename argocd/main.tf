@@ -13,7 +13,7 @@ resource "kubectl_manifest" "namespace_argocd" {
 
 resource "helm_release" "argocd" {
   name             = "argocd"
-  namespace        = "argocd-system"
+  namespace        = "argocd"
   repository       = "https://argoproj.github.io/argo-helm"
   chart            = "argo-cd"
   create_namespace = false

@@ -14,6 +14,8 @@ Packer is used to create a Ubuntu server virtual machine image for `vagrant` (.b
 
 Provisions a Kubernetes cluster in VirtualBox with the desired configuration. The virtual machines are provisioned with `vagrant`. The Kubernetes cluster is configured with `Ansible`. Terraform manages these resources.
 
+Currently, due to Kubernetes repository not having "latest" by design, the version of Kubernetes to be installed needs to be manually modified in `kubernetes-cluster/roles/k8s/common/defaults/main.yml`.
+
 Logging in via SSH can be done by `ssh vagrant@localhost -p 2200 -i ~/.ssh/private-key`.
 
 At this point, `vagrant` cannot be used to manage the virtual machines unless the environment variables for the VMI name and the SSH private key are explicitly set.
@@ -38,9 +40,11 @@ Alternatively, a host like (`kubernetes-dashboard.my-cluster.local`) can be spec
 
 The cluster includes Prometheus and Grafana, as per the [Prometheus community](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack). Custom configurations are applied so that Prometheus works with Linkerd.
 
+Default password - as described [here](https://stackoverflow.com/a/62793331/10785101).
+
 ### ArgoCD
 
-[ArgoCD](https://argo-cd.readthedocs.io/en/stable/) is available and accessible via a `LoadBalancer` service.
+[ArgoCD](https://argo-cd.readthedocs.io/en/stable/) is available and accessible via a `LoadBalancer` service. The default username is `admin`, the default password is in the secret `argocd-initial-admin-secret`.
 
 ## Usage
 
