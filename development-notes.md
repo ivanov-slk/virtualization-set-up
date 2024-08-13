@@ -113,4 +113,4 @@ tcpdump: listening on enp0s8, link-type EN10MB (Ethernet), snapshot length 26214
 
 - Had to use `break_system_packages` for pip to be able to install `kubernetes` system-wide. Not recommended.
 - Had to use the new Kubernetes repositories; [documentation](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl). **This now results in the need to update the Kubernetes version in the keys URL, when new Kubernetes version is to be installed!!!**
-- `10-kubeadm.conf` has moved to `/usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf`. Previously it was in `/etc/...`, and apparently it is possible to put there overrides.
+- `10-kubeadm.conf` has moved to `/usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf`. Previously it was in `/etc/...`, and apparently it is possible to put there overrides. Also needed to edit the file in `/etc/default/kubelet`, adding the argument. The latter thing did work.
