@@ -2,6 +2,15 @@
 
 ---
 
+# v0.16.0
+
+### New
+
+- Add configuration for Ubuntu Server 24.04.
+- Update all tools to the latest available versions.
+
+---
+
 # v0.15.0
 
 ### New
