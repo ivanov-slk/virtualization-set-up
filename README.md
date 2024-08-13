@@ -14,6 +14,8 @@ Packer is used to create a Ubuntu server virtual machine image for `vagrant` (.b
 
 Provisions a Kubernetes cluster in VirtualBox with the desired configuration. The virtual machines are provisioned with `vagrant`. The Kubernetes cluster is configured with `Ansible`. Terraform manages these resources.
 
+Currently, due to Kubernetes repository not having "latest" by design, the version of Kubernetes to be installed needs to be manually modified in `kubernetes-cluster/roles/k8s/common/defaults/main.yml`.
+
 Logging in via SSH can be done by `ssh vagrant@localhost -p 2200 -i ~/.ssh/private-key`.
 
 At this point, `vagrant` cannot be used to manage the virtual machines unless the environment variables for the VMI name and the SSH private key are explicitly set.
